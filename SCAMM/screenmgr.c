@@ -16,7 +16,7 @@ unsigned char setScreen(unsigned char mode) {
 		return r;
 	}
 	screen(mode);
-	SCREEN.fileName[6] = r + '0';
+	SCREEN.fileName[6] = mode + '0';
 	return activateMDO(&SCREEN);
 }
 

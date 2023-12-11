@@ -100,9 +100,4 @@
       <Filter>Project Config</Filter>
     </Text>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="msxdosovl.c">
-      <Filter>C Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
 </Project>

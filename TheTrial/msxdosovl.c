@@ -15,30 +15,38 @@
 // ----------------------------------------------------------
 //	This is the custom initialization function for your C MDO.
 //	Invoked when the MDO is loaded.
-void initialize (void) {
+unsigned char initialize (void) {
 	dbg("The Trial's MDO initialized!\r\n\0");
+	return 0;
 }
 
 // ----------------------------------------------------------
 //	This is the custom finalization function for your C MDO!
 //	Invoked when the MDO is unloaded.
-void finalize(void) {
+unsigned char finalize(void) {
 	dbg("The Trial's MDO finalized!\r\n\0");
+	return 0;
 }
 
 // ----------------------------------------------------------
 //	This is the custom activation function for your C MDO!
 //	Invoked when the MDO is linked.
-void activate(void) {
-	setScreen(8);
-	dbg("The Trial's MDO activated!\r\n\0");
+unsigned char activate(void) {
+	unsigned char r = setScreen(8);
+	if (r) {
+		dbg("The Trial's MDO activation failed!\r\n\0");
+	} else {
+		dbg("The Trial's MDO activated!\r\n\0");
+	}
+	return r;
 }
 
 // ----------------------------------------------------------
 //	This is the custom deactivation function for your C MDO!
 //	Invoked when the MDO is unlinked.
-void deactivate(void) {
+unsigned char deactivate(void) {
 	dbg("The Trial's MDO deactivated!\r\n\0");
+	return 0;
 }
 
 // ----------------------------------------------------------

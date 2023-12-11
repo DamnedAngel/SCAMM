@@ -188,12 +188,14 @@ mdoLoad_closefile:
 	ld		de, #_mdoFCB
 	call	BDOS_SYSCAL
 
+	; end
+	pop		af
+	or		a
+	jr nz,	mdoService_finalize
+	
 	; call MDO's onLoad routine
 	ld		de, #8				; onLoad
 	call	callCustomRoutine
-
-	; end
-	pop		af
 
 	; finalization routine for all services
 mdoService_finalize::
@@ -261,7 +263,6 @@ _mdoRelease::
 	call	callCustomRoutine
 	
 	; end
-	xor		a
 	jr		mdoService_finalize
 
 ;-----------------
@@ -335,7 +336,6 @@ mdoLink_setStatusLinked:
 	call	callCustomRoutine
 	
 	; end
-	xor		a
 	jr		mdoService_finalize
 
 ;----------------------------------------------------------
@@ -381,7 +381,6 @@ mdoUnlink_setStatusUnlinked:
 	call	callCustomRoutine
 	
 	; end
-	xor		a
 	jp		mdoService_finalize
 
 _mdoAbend::

@@ -17,28 +17,32 @@
 ;	This is the custom initialization function for your C MDO.
 ;	Invoked when the MDO is loaded.
 _initialize::
-    dbg	_initializemsg
+    dbg		_initializemsg
+	xor		a
 	ret
 
 ; ----------------------------------------------------------
 ;	This is the custom finalization function for your C MDO!
 ;	Invoked when the MDO is unloaded.
 _finalize::
-    dbg	_finalizemsg
+    dbg		_finalizemsg
+	xor		a
 	ret
 
 ; ----------------------------------------------------------
 ;	This is the custom activation function for your C MDO!
 ;	Invoked when the MDO is linked.
 _activate::
-    dbg	_activatemsg
+    dbg		_activatemsg
+	xor		a
 	ret
 
 ; ----------------------------------------------------------
 ;	This is the custom deactivation function for your C MDO!
 ;	Invoked when the MDO is unlinked.
 _deactivate::
-    dbg	_deactivatemsg
+    dbg		_deactivatemsg
+	xor		a
 	ret
 
 ; ----------------------------------------------------------
@@ -62,13 +66,6 @@ _render::
 ;	Output: Nothing
 _updateFrame::
  	ret
-
-
-; ----------------------------------------------------------
-;   Once you replaced the commands in the _main routine
-;   above with your own program, you should delete the
-;   lines below. They are for demonstration purposes only.
-; ----------------------------------------------------------
 
 ; ----------------------------------------------------------
 ;	Messages

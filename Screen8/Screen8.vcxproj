@@ -79,9 +79,6 @@
     <Text Include="Config\TargetConfig_Debug.txt" />
     <Text Include="Config\TargetConfig_Release.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="msxdosovl.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
