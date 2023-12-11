@@ -6,7 +6,6 @@
 
 #include "applicationsettings.h"
 #include "mdointerface.h"
-#include "printinterface.h"
 
 #include "mdomgr.h"
 
@@ -16,7 +15,7 @@ unsigned char startGame(void) {
 		return r;
 	}
 	gameStart_hook();
-	return  (unsigned char) 0;
+	return 0;
 }
 
 unsigned char endGame(void) {
@@ -25,6 +24,5 @@ unsigned char endGame(void) {
 }
 
 unsigned char runGame() {
-
-	return (unsigned char) 0;
+	return 0;
 }

@@ -12,8 +12,8 @@
 
 #include "mdointerface.h"
 #include "gamemgr.h"
-
-extern unsigned char	GAME;
+#include "screen.h"
+#include "screenmgr.h"
 
 void abendMessage(unsigned char r) {
 	print("SCAMM Fatal Error.\r\n\0");
@@ -59,8 +59,17 @@ unsigned char main(const unsigned char** argv, int argc) {
 	r = endGame();
 	if (r) {
 		abendMessage(r);
+		return r;
 	}
-	return r;
 	dbg("Game finalized.\r\n\0");
+	
+	// Finalize screen
+	dbg("Returning to text mode...\r\n\0");
+	finalizeScreen();
+	screen(0);
+	dbg("Text mode activated.\r\n\0");
+
+	print("You've been SCAMMed! Goodbye.\r\n\0");
+	return 0;
 }
 

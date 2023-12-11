@@ -7,50 +7,67 @@
 #include "applicationsettings.h"
 #include "mdointerface.h"
 #include "printinterface.h"
+#include "mdostructures.h"
 
-unsigned char activateMDO(unsigned char* hMDO) {
-	dbg("Loading MDO ");
-	sdbg(hMDO + 14);
+
+unsigned char activateMDO(mdoHandler* hMDO) {
+	unsigned char r;
+
+	dbg("Activating MDO ");
+	sdbg(&(hMDO->mdoName));
 	sdbg(ellipsis);
 
-	// load MDO
-	unsigned char r = mdoLoad(hMDO);
-	if (r) {
-		dbg("Error loading MDO.\r\n\0");
-		return r;
+	if (!(hMDO->status & mdoStatus_loaded)) {
+		// load MDO
+		dbg("Loading MDO...\r\n\0");
+		r = mdoLoad(hMDO);
+		if (r) {
+			dbg("Error loading MDO.\r\n\0");
+			return r;
+		}
+		dbg("MDO loaded successfully.\r\n\0");
 	}
-	dbg("MDO loaded successfully.Linking...\r\n\0");
 
-	// link MDO
-	r = mdoLink(hMDO);
-	if (r) {
-		dbg("Error linking MDO.\r\n\0");
-		return r;
+	if (!(hMDO->status & mdoStatus_linked)) {
+		// link MDO
+		dbg("Linking MDO...\r\n\0");
+		r = mdoLink(hMDO);
+		if (r) {
+			dbg("Error linking MDO.\r\n\0");
+			return r;
+		}
+		dbg("MDO linked successfully.\r\n\0");
 	}
-	dbg("MDO linked successfully.\r\n\0");
 	return 0;
 }
 
-unsigned char deactivateMDO(unsigned char* hMDO) {
-	dbg("Unlinking MDO ");
-	sdbg(hMDO + 14);
+unsigned char deactivateMDO(mdoHandler* hMDO) {
+	unsigned char r;
+	dbg("Deactivating MDO ");
+	sdbg(&(hMDO->mdoName));
 	sdbg(ellipsis);
 
 	// unlink MDO
-	unsigned char r = mdoUnlink(hMDO);
-	if (r) {
-		dbg("Error unlinking MDO.\r\n\0");
-		return r;
+	if (hMDO->status & mdoStatus_linked) {
+		dbg("Unlinking MDO...\r\n\0");
+		r = mdoUnlink(hMDO);
+		if (r) {
+			dbg("Error unlinking MDO.\r\n\0");
+			return r;
+		}
+		dbg("MDO unlinked successfully.\r\n\0");
 	}
-	dbg("MDO unlinked successfully.\r\n\0");
 
 	// release MDO
-	r = mdoRelease(hMDO);
-	if (r) {
-		dbg("Error releasing MDO.\r\n\0");
-		return r;
+	if (hMDO->status & mdoStatus_loaded) {
+		dbg("Releasing MDO...\r\n\0");
+		r = mdoRelease(hMDO);
+		if (r) {
+			dbg("Error releasing MDO.\r\n\0");
+			return r;
+		}
+		dbg("MDO released successfully.\r\n\0");
 	}
-	dbg("MDO released successfully.\r\n\0");
 	return 0;
 }
 

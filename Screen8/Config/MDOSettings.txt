@@ -6,26 +6,30 @@
 
 ;----------------------------------------------------------
 ;	MDO hierarchy
-;	This project IS the base application module. Always leave ".".
-MDO_APPLICATION_PROJECT_PATH	.
+MDO_APPLICATION_PROJECT_PATH	../Scamm
+MDO_PARENT_PROJECT_PATH			../Scamm
+
+;----------------------------------------------------------
+;	MDO settings
+FILESTART						PARENT_AFTERHEAP
 
 ;----------------------------------------------------------
 ;	MDO name
-MDO_NAME						SCAMM_ENGINE
+MDO_NAME						SCREEN8
 
 ;----------------------------------------------------------
 ;	MDO hooks
 ;	Syntax: MDO_HOOK <C return type>|<hookname>|<C signature>
-;MDO_HOOK						void|mdoChildHello|(void)
-;MDO_HOOK						void|mdoChildGoodbye|(void)
-MDO_HOOK						void|invalidate|(void)
-MDO_HOOK						void|render|(void)
-MDO_HOOK						void|updateFrame|(void)
+;MDO_HOOK						void|voidmdoDoSomething|(void)
+;MDO_HOOK						unsigned char|mdoDoSomethingElse|(int)
 
-MDO_HOOK						void|gameStart|(void)
-MDO_HOOK						void|gameEnd|(void)
-
-
+;----------------------------------------------------------
+;	MDO hook implementation
+;MDO_HOOK_IMPLEMENTATION			mdoChildHello		_hello
+;MDO_HOOK_IMPLEMENTATION			mdoChildGoodbye		_goodbye
+MDO_HOOK_IMPLEMENTATION				invalidate			_invalidate
+MDO_HOOK_IMPLEMENTATION				render				_render
+MDO_HOOK_IMPLEMENTATION				updateFrame			_updateFrame
 
 ;----------------------------------------------------------
 ;	Children MDOs
@@ -33,5 +37,4 @@ MDO_HOOK						void|gameEnd|(void)
 ;	Notes:
 ;	  - if filename is less than 8 characters, the rest must be filled in by spaces.
 ;	  - if extension is less than 3 characters, the rest must be filled in by spaces.
-MDO_CHILD						GAME	^/GAME    /	SCA	#0x3000
-MDO_CHILD						SCREEN	^/SCREENx / DRV #s__AFTERHEAP
+;MDO_CHILD						OVERLAY_ONE ^/MSXOVL1 / MDO #s__AFTERHEAP

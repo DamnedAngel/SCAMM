@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{759d9241-827e-4ad7-9793-1e60972e0ac6}</ProjectGuid>
+    <ProjectGuid>{e2821803-f034-4582-8ed5-d6ff4689325a}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -45,8 +45,6 @@
     <NMakeCleanCommandLine>python Make\make.py $(Configuration) clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>python Make\make.py $(Configuration) clean all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Configuration)\objs\</IncludePath>
-    <SourcePath>$(VC_SourcePath);$(Configuration)\obj\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>python Make\make.py $(Configuration)</NMakeBuildCommandLine>
@@ -58,31 +56,16 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="gamemgr.h" />
-    <ClInclude Include="mdomgr.h" />
-    <ClInclude Include="mdostructures.h" />
     <ClInclude Include="MSX\BIOS\msxbios.h" />
     <ClInclude Include="printinterface.h" />
-    <ClInclude Include="screen.h" />
-    <ClInclude Include="screenmgr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Make\make.py" />
     <None Include="Make\symbol.py" />
+    <None Include="msxdosovl.s" />
     <None Include="MSX\BIOS\msxbios.s" />
-    <None Include="MSX\MSX-DOS\mdostructures.s" />
-    <None Include="MSX\MSX-DOS\msxdoscrt0.s" />
-    <None Include="MSX\MSX-DOS\mdoservices.s" />
-    <None Include="print.s" />
+    <None Include="MSX\MDO\msxdosovlcrt0.s" />
     <None Include="printinterface.s" />
-    <None Include="screen.s" />
-    <None Include="screenmgr_h.s" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="mdomgr.c" />
-    <ClCompile Include="gamemgr.c" />
-    <ClCompile Include="msxdosapp.c" />
-    <ClCompile Include="screenmgr.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\ApplicationSettings.txt" />
@@ -95,6 +78,9 @@
     <Text Include="Config\Symbols.txt" />
     <Text Include="Config\TargetConfig_Debug.txt" />
     <Text Include="Config\TargetConfig_Release.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="msxdosovl.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

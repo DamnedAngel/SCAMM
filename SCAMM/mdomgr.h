@@ -7,8 +7,10 @@
 #ifndef  __MDOMGR_H__
 #define  __MDOMGR_H__
 
-unsigned char activateMDO(unsigned char* hMDO);
-unsigned char deactivateMDO(unsigned char* hMDO);
+#include "mdostructures.h"
+
+unsigned char activateMDO(mdoHandler* hMDO);
+unsigned char deactivateMDO(mdoHandler* hMDO);
 unsigned char onMDOAbend(void);
 
 #endif	// __MDOMGR_H__

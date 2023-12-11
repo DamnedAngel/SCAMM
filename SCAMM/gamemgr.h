@@ -7,7 +7,7 @@
 #ifndef  __GAMEMGR_H__
 #define  __GAMEMGR_H__
 
-// unsigned char startGame(void);
+unsigned char startGame(void);
 unsigned char runGame(void);
 unsigned char endGame(void);
 

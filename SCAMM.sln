@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheTrial", "TheTrial\TheTri
 		{759D9241-827E-4AD7-9793-1E60972E0AC6} = {759D9241-827E-4AD7-9793-1E60972E0AC6}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Screen8", "Screen8\Screen8.vcxproj", "{E2821803-F034-4582-8ED5-D6FF4689325A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{759D9241-827E-4AD7-9793-1E60972E0AC6} = {759D9241-827E-4AD7-9793-1E60972E0AC6}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -24,6 +29,10 @@ Global
 		{ACD32D5B-B45B-4EB1-A7C4-6AAA5671FDD0}.Debug|x86.Build.0 = Debug|Win32
 		{ACD32D5B-B45B-4EB1-A7C4-6AAA5671FDD0}.Release|x86.ActiveCfg = Release|Win32
 		{ACD32D5B-B45B-4EB1-A7C4-6AAA5671FDD0}.Release|x86.Build.0 = Release|Win32
+		{E2821803-F034-4582-8ED5-D6FF4689325A}.Debug|x86.ActiveCfg = Debug|Win32
+		{E2821803-F034-4582-8ED5-D6FF4689325A}.Debug|x86.Build.0 = Debug|Win32
+		{E2821803-F034-4582-8ED5-D6FF4689325A}.Release|x86.ActiveCfg = Release|Win32
+		{E2821803-F034-4582-8ED5-D6FF4689325A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

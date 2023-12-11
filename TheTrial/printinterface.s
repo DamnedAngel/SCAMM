@@ -21,7 +21,7 @@
 .endif
 .endm
 
-.macro dbg msg
+.macro sdbg msg
 .if DEBUG
 	print	msg
 .endif
