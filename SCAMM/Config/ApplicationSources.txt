@@ -25,7 +25,10 @@ msxdosapp.c
 ;	Add below additional source files for your application
 ;	using relative paths from the project folder
 print.s
+color.s
 screen.s
+9938_hmmc.s
+9938_vdpready.s
 mdomgr.c
 screenmgr.c
 gamemgr.c

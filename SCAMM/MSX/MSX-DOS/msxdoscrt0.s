@@ -144,7 +144,20 @@ cont:
 .endif
 
 ;----------------------------------------------------------
-;	Step 3: Run application
+;	Step 3: VDP port fix
+.if VDP_PORT_FIX
+   ld      hl, #vdpInPortMap
+   ld      a,  (#BIOS_VRPORT)
+   ld      b,  a
+   call    vdpPortFix
+   ld      hl, #vdpOutPortMap
+   ld      a,  (#BIOS_VWPORT)
+   ld      b,  a
+   call    vdpPortFix
+.endif
+
+;----------------------------------------------------------
+;	Step 4: Run application
 .if __SDCCCALL
     pop     hl
     pop     de
@@ -157,7 +170,7 @@ cont:
 
 
 ;----------------------------------------------------------
-;	Step 4: Program termination.
+;	Step 5: Program termination.
 ;	Termination code for DOS 2 was returned:
 ;   - on l for sdcccall(0);
 ;   - on a for sdcccall(1).
@@ -173,7 +186,20 @@ programEnd:
     jp      5			;...and then this one terminates
 						;(DOS 1 function for program termination).
 
-
+.if VDP_PORT_FIX
+vdpPortFix::
+   ld      a, (hl)     ; relative port
+   cp      #0xff
+   ret z
+   add     a, b        ; a = port
+   inc     hl
+   ld      e, (hl)
+   inc     hl
+   ld      d, (hl)     ; de = address to be fixed
+   ld      (de), a
+   inc     hl
+   jr      vdpPortFix
+.endif
 ;----------------------------------------------------------
 ;	Segments order
 ;----------------------------------------------------------
@@ -186,6 +212,13 @@ programEnd:
     .area _MDOCHILDLISTFINAL
     .area _MDOCHILDREN
     .area _MDOSERVICES
+.endif
+
+ .if VDP_PORT_FIX
+    .area _VDPINPORTMAP
+    .area _VDPINPORTMAPFINAL
+    .area _VDPOUTPORTMAP
+    .area _VDPOUTPORTMAPFINAL
 .endif
 
     .area _HOME
@@ -232,6 +265,24 @@ mdoChildren:
     MDO_SERVICES
 
 .include "mdoimplementation.s"
+.endif
+
+ .if VDP_PORT_FIX
+;----------------------------------------------------------
+;	VDP in port map
+    .area _VDPINPORTMAP
+vdpInPortMap::
+    .area _VDPINPORTMAPFINAL
+vdpInPortMapFinal::
+    .db     #0xff
+
+;----------------------------------------------------------
+;	VDP out port map
+    .area _VDPOUTPORTMAP
+vdpOutPortMap::
+    .area _VDPOUTPORTMAPFINAL
+vdpOutPortMapFinal::
+    .db     #0xff
 .endif
 
 ;   =====================================

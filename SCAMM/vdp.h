@@ -1,12 +1,13 @@
 // ----------------------------------------------------------
-//		screen.h - by DamnedAngel, 2023
+//		vdp.h - by DamnedAngel, 2023
 //
 //		Changes screen mode
 // ----------------------------------------------------------
 
-#ifndef  __SCREEN_H__
-#define  __SCREEN_H__
+#ifndef  __VDP_H__
+#define  __VDP_H__
 
 void screen(unsigned char mode);
+void color(unsigned char foreground, unsigned char background, unsigned char border);
 
-#endif	// __SCREEN_H__
+#endif	// __VDP_H__

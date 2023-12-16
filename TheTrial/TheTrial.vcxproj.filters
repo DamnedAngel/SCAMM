@@ -73,6 +73,9 @@
     <None Include="Make\finalize.bat">
       <Filter>Make</Filter>
     </None>
+    <None Include="hmmctest.s">
+      <Filter>ASM Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\ApplicationSettings.txt">

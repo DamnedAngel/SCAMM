@@ -24,5 +24,8 @@ _msgdbg
 _linefeed
 _ellipsis
 
+_color
 _setScreen
 _finalizeScreen
+
+_HMMCSetup

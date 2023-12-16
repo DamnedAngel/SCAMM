@@ -10,7 +10,11 @@
 #include "applicationsettings.h"
 #include "printinterface.h"
 
+#include "../SCAMM/vdp.h"
 #include "../SCAMM/screenmgr.h"
+
+
+extern void HMMCTest(void);
 
 // ----------------------------------------------------------
 //	This is the custom initialization function for your C MDO.
@@ -32,7 +36,10 @@ unsigned char finalize(void) {
 //	This is the custom activation function for your C MDO!
 //	Invoked when the MDO is linked.
 unsigned char activate(void) {
-	unsigned char r = setScreen(8);
+	unsigned char r;
+	color(255, 0, 0);
+	r = setScreen(8);
+	HMMCTest();
 	if (r) {
 		dbg("The Trial's MDO activation failed!\r\n\0");
 	} else {

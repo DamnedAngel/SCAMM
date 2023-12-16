@@ -26,3 +26,4 @@ msxdosovl.c
 ;	using relative paths from the project folder
 ;yourSourceCodeHere.s
 ;yourSourceCodeHere.c
+hmmctest.s

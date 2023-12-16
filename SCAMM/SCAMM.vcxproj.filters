@@ -42,6 +42,9 @@
     <Filter Include="C Header Files\MSX\BIOS">
       <UniqueIdentifier>{a28f4563-9c19-4eb8-8b3a-b326d570df42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ASM Source Files\9938">
+      <UniqueIdentifier>{58ea6315-33ff-4079-ae3f-6d74e84f391a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MSX\BIOS\msxbios.h">
@@ -56,7 +59,7 @@
     <ClInclude Include="gamemgr.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="screen.h">
+    <ClInclude Include="vdp.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mdostructures.h">
@@ -96,6 +99,21 @@
     </None>
     <None Include="screenmgr_h.s">
       <Filter>ASM Source Files</Filter>
+    </None>
+    <None Include="9938_hmmm.s">
+      <Filter>ASM Source Files\9938</Filter>
+    </None>
+    <None Include="vdpportmacros.s">
+      <Filter>ASM Header Files</Filter>
+    </None>
+    <None Include="9938_vdpready.s">
+      <Filter>ASM Source Files\9938</Filter>
+    </None>
+    <None Include="9938_hmmc.s">
+      <Filter>ASM Source Files\9938</Filter>
+    </None>
+    <None Include="color.s">
+      <Filter>ASM Source Files\MSX</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

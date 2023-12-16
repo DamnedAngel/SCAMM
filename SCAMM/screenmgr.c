@@ -7,7 +7,7 @@
 #include "applicationsettings.h"
 #include "mdointerface.h"
 
-#include "screen.h"
+#include "vdp.h"
 #include "mdomgr.h"
 
 unsigned char setScreen(unsigned char mode) {

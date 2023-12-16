@@ -60,6 +60,7 @@
     <ClInclude Include="printinterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="hmmctest.s" />
     <None Include="Make\finalize.bat" />
     <None Include="Make\make.py" />
     <None Include="Make\symbol.py" />

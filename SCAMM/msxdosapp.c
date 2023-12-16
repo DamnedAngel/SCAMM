@@ -12,7 +12,7 @@
 
 #include "mdointerface.h"
 #include "gamemgr.h"
-#include "screen.h"
+#include "vdp.h"
 #include "screenmgr.h"
 
 void abendMessage(unsigned char r) {

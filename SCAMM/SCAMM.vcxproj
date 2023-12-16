@@ -63,10 +63,14 @@
     <ClInclude Include="mdostructures.h" />
     <ClInclude Include="MSX\BIOS\msxbios.h" />
     <ClInclude Include="printinterface.h" />
-    <ClInclude Include="screen.h" />
+    <ClInclude Include="vdp.h" />
     <ClInclude Include="screenmgr.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="9938_hmmc.s" />
+    <None Include="9938_hmmm.s" />
+    <None Include="9938_vdpready.s" />
+    <None Include="color.s" />
     <None Include="Make\make.py" />
     <None Include="Make\symbol.py" />
     <None Include="MSX\BIOS\msxbios.s" />
@@ -77,6 +81,7 @@
     <None Include="printinterface.s" />
     <None Include="screen.s" />
     <None Include="screenmgr_h.s" />
+    <None Include="vdpportmacros.s" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mdomgr.c" />

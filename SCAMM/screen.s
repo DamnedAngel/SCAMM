@@ -20,10 +20,9 @@ _screen::
 	ld 		(hl),a
 
 	ld		hl,	#BIOS_DPPAGE
-	xor		a
-	ld		(hl), a
+	ld		(hl), #0
 	inc		hl					; BIOS_ACPAGE
-	ld		(hl), a
+	ld		(hl), #0
 
 	push	ix					; by sdcc standard, ix must be preserved by the callee
 	ld		ix, #BIOS_CHGMOD
