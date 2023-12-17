@@ -31,17 +31,18 @@ hhh:
 	ld		de, #8		; height
 	ld		b, #0		; direction
 	exx
-	ld		hl, #8		; x pos
-	ld		de, #20		; y pos
+	ld		hl, #58		; x pos
+	ld		de, #40		; y pos
 
 	call	_HMMCSetup
 
 	ld		b, #0
-	ld		a, #0x1c
+	ld		a, #0xff
 ggg:
 	out		(c), a
 	djnz	ggg
 
+next1:
 	ld		hl, #4		; width
 	ld		de, #64		; height
 	ld		b, #0		; direction
@@ -52,7 +53,7 @@ ggg:
 	call	_HMMCSetup
 
 	ld		b, #0
-	ld		a, #3
+	ld		a, #0xff
 ddd:
 	out		(c), a
 	djnz	ddd

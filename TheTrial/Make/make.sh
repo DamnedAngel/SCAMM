@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
-cd ../SCAMM
-r=$(python ./Make/make.py Debug $1 $2)
-if [ "$r" -ne "0" ]; then
-    cd ../TheTrial
-    exit;
-fi;
+build () {
+    cd ../$1
+    python ./Make/make.py Debug $2 $3
+    r=$?
+    echo "Exit code: $r"
+    if [ "$r" -ne "0" ]; then
+        cd ../TheTrial
+        exit $r
+    fi;
+}
 
-cd ../Screen8
-r=$(python ./Make/make.py Debug $1 $2)
-if [ "$r" -ne "0" ]; then
-    cd ../TheTrial
-    exit;
-fi;
+build SCAMM $1 $2
+build Screen8 $1 $2
+build TheTrial $1 $2
 
-cd ../TheTrial
-python ./Make/make.py Debug $1 $2
