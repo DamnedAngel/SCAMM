@@ -28,4 +28,5 @@ _color
 _setScreen
 _finalizeScreen
 
-_HMMCSetup
+_HMMC
+_9938

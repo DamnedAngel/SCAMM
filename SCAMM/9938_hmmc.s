@@ -50,7 +50,7 @@ _HMMCSetupBuffer::
 ;	Changes: AF, BC, HL
 ;----------------------------------------------------------
 
-_HMMCSetup::
+_HMMCSetupOld::
 	ld_c_vdpOutPort 3, _HMMCSetup	; 4th port
 	exx
 	ld_c_vdpOutPort 3, _HMMCSetup	; 4th port
@@ -94,8 +94,115 @@ _HMMCSetup::
 	ld		a, #44 + 0x80
 	vdp_OutA 1, _HMMCSetup			; 2nd port
 	ld		a, #17 + 0x80
-	vdp_OutA 1, _HMMCSetup			; R17 <- 40, no increment
+	vdp_OutA 1, _HMMCSetup			; R17 <- 44, no increment
+
+	exx
 	ret	
+
+
+
+_HMMCSetup1::
+	ld_c_vdpOutPort 3, _HMMCSetup	; 4th port
+	exx
+	ld_c_vdpOutPort 3, _HMMCSetup	; 4th port
+	exx
+
+	call	_waitVdpReady
+	
+	ld		a, #36
+	vdp_OutA 1, _HMMCSetup			; 2nd port
+	ld		a, #17 + 0x80
+	vdp_OutA 1, _HMMCSetup			; R17 <- 36
+
+	out		(c), l					; Reg 36 (X lo)
+	out		(c), h					; Reg 37 (X hi)	
+	out		(c), e					; Reg 38 (Y lo)
+	out		(c), d					; Reg 39 (Y hi)
+	exx
+	xor		a
+	out		(c), c					; Reg 40 (Width lo)
+	out		(c), a					; Reg 41 (Width hi)
+	out		(c), c					; Reg 42 (Height lo)
+	out		(c), a					; Reg 43 (Height hi)
+	out		(c), a					; Reg 44 (Color, dummy)
+	out		(c), a					; Reg 45 (Direction)
+	ld		a,	#0b11110000			; HMMC
+	out		(c), a					; Reg 46 (execute, dummy)
+
+	ret
+
+_HMMCSetup2::
+	; forces VDP to wait for first byte of data again
+	ld		a, #36
+	vdp_OutA 1, _HMMCSetup			; 2nd port
+	ld		a, #17 + 0x80
+	vdp_OutA 1, _HMMCSetup			; R17 <- 36
+
+	out		(c), l					; Reg 36 (X lo)
+	out		(c), h					; Reg 37 (X hi)	
+	out		(c), e					; Reg 38 (Y lo)
+	out		(c), d					; Reg 39 (Y hi)
+	exx
+	out		(c), l					; Reg 40 (Width lo)
+	out		(c), h					; Reg 41 (Width hi)
+	ld		a, e
+	inc		a
+	out		(c), a					; Reg 42 (Height lo)
+	out		(c), d					; Reg 43 (Height hi)
+	out		(c), a					; Reg 44 (Color, dummy)
+	out		(c), b					; Reg 45 (Direction)
+	ld		a,	#0b11110000			; HMMC
+	out		(c), a					; Reg 46 (execute, dummy)
+
+	ld		a, #44 + 0x80
+	vdp_OutA 1, _HMMCSetup			; 2nd port
+	ld		a, #17 + 0x80
+	vdp_OutA 1, _HMMCSetup			; R17 <- 44, no increment
+
+	ret
+
+_HMMCFirstSetup::
+	ld_c_vdpOutPort 3, _HMMCFirstSetup	; 4th port
+	exx
+	ld_c_vdpOutPort 3, _HMMCFirstSetup	; 4th port
+	exx
+
+	call	_waitVdpReady
+	call	_HMMCSetup
+
+	exx
+
+_HMMCSetup::
+
+	ld		a, #36
+	vdp_OutA 1, _HMMCSetup			; 2nd port
+	ld		a, #17 + 0x80
+	vdp_OutA 1, _HMMCSetup			; R17 <- 36
+
+	out		(c), l					; Reg 36 (X lo)
+	out		(c), h					; Reg 37 (X hi)	
+	out		(c), e					; Reg 38 (Y lo)
+	out		(c), d					; Reg 39 (Y hi)
+	exx
+	out		(c), l					; Reg 40 (Width lo)
+	out		(c), h					; Reg 41 (Width hi)
+	ld		a, e
+	inc		a						; avoid command to reach the end, allowing command chain
+	out		(c), a					; Reg 42 (Height lo)
+	out		(c), d					; Reg 43 (Height hi)
+	out		(c), a					; Reg 44 (Color, dummy)
+	out		(c), b					; Reg 45 (Direction)
+
+	ld		a,	#0b11110000			; HMMC
+	out		(c), a					; Reg 46 (execute, dummy)
+
+	; prepare to receive data
+	ld		a, #44 + 0x80
+	vdp_OutA 1, _HMMCSetup			; 2nd port
+	ld		a, #17 + 0x80
+	vdp_OutA 1, _HMMCSetup			; R17 <- 44, no increment
+
+	ret
 
 ;.ifdef HMMC
 ;----------------------------------------------------------

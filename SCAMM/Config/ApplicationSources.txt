@@ -27,6 +27,7 @@ msxdosapp.c
 print.s
 color.s
 screen.s
+9938_stop.s
 9938_hmmc.s
 9938_vdpready.s
 mdomgr.c

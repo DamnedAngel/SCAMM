@@ -30,6 +30,16 @@ _isVdpReady::
 ;	Changes: a
 ;----------------------------------------------------------
 _waitVdpReady::
-	call	_isVdpReady
-	jr nz,	_waitVdpReady
+	ld		a,#2
+	vdp_OutA, 1, _isVdpReady
+	ld		a, #15 + #0x80
+	vdp_OutA, 1, _isVdpReady
+	vdp_InA, 1, _isVdpReady
+	and		#1
+	jp	nz, _waitVdpReady
+
+	xor	a
+	vdp_OutA, 1, _isVdpReady
+	ld		a, #15 + #0x80
+	vdp_OutA, 1, _isVdpReady
 	ret
