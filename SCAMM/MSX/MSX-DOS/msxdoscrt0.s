@@ -146,14 +146,21 @@ cont:
 ;----------------------------------------------------------
 ;	Step 3: VDP port fix
 .if VDP_PORT_FIX
-   ld      hl, #vdpInPortMap
-   ld      a,  (#BIOS_VRPORT)
-   ld      b,  a
-   call    vdpPortFix
-   ld      hl, #vdpOutPortMap
-   ld      a,  (#BIOS_VWPORT)
-   ld      b,  a
-   call    vdpPortFix
+    ld      a,(#BIOS_EXPTBL)
+    ld      hl, #BIOS_VDPDR
+    call    BIOS_RDSLT
+    ld      hl, #vdpInPortMap
+    ld      b,  a
+    call    vdpPortFix
+
+    ld      a,(#BIOS_EXPTBL)
+    ld      hl, #BIOS_VDPDW
+    call    BIOS_RDSLT
+    ld      hl, #vdpOutPortMap
+    ld      b,  a
+    call    vdpPortFix
+
+    ei
 .endif
 
 ;----------------------------------------------------------
@@ -186,6 +193,9 @@ programEnd:
     jp      5			;...and then this one terminates
 						;(DOS 1 function for program termination).
 
+
+;----------------------------------------------------------
+;	VDP Port Fix helper routine
 .if VDP_PORT_FIX
 vdpPortFix::
    ld      a, (hl)     ; relative port
@@ -266,6 +276,10 @@ mdoChildren:
 
 .include "mdoimplementation.s"
 .endif
+
+;   ==================================
+;   ======== VDP FIX SEGMENTS ========
+;   ==================================
 
  .if VDP_PORT_FIX
 ;----------------------------------------------------------

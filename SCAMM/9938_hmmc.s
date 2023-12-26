@@ -23,9 +23,9 @@
 ;	Changes: AF, BC, HL, invert (EXX)
 ;----------------------------------------------------------
 _HMMCSetup::
-	ld_c_vdpOutPort 3, _HMMCFirstSetup	; 4th port
+	ld_c_vdpOutPort 3, _HMMCSetup	; 4th port
 	exx
-	ld_c_vdpOutPort 3, _HMMCFirstSetup	; 4th port
+	ld_c_vdpOutPort 3, _HMMCSetup	; 4th port
 	exx
 
 	call	_waitVdpReady

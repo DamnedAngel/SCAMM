@@ -10,7 +10,7 @@
 
 # -----------------------------------------------------------------------------------
 OPEN1 = r'MSX SDCC Make Script Copyright © 2020-2023 Danilo Angelo'
-OPEN2 = r'version 00.06.00 - Codename Sam'
+OPEN2 = r'version 00.06.01 - Codename Sam'
 # -----------------------------------------------------------------------------------
 
 from dis import code_info
@@ -46,6 +46,7 @@ def debug(debugLevel, message):
 		print(message)
 	return
 
+
 ## EXECUTE WITHOUT FIX
 def executeWithoutFix(debugLevel, commandLine):
     cl = commandLine
@@ -67,11 +68,12 @@ def executeWithoutFix(debugLevel, commandLine):
 
     return
 
+
 ## EXECUTE
 def execute(debugLevel, commandLine):
     executeWithoutFix (debugLevel, fixPath(commandLine))
     return
-      
+
 
 ## EXECUTE ACTION
 def execAction (phase):
@@ -85,6 +87,7 @@ def execAction (phase):
             executeWithoutFix(VAR['DBG_CALL3'], '{} {}'.format(VAR['SHELL_PREFIX'], commandLine))
             debug(VAR['DBG_STEPS'], 'Done executing {} action.'.format(phase))
     return
+
 
 ## RESOLVE STRING
 def resolveString (string):
