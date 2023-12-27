@@ -30,7 +30,6 @@ MDO_NAME						GAME
 MDO_HOOK_IMPLEMENTATION				gameStart			_gameStart
 MDO_HOOK_IMPLEMENTATION				gameEnd				_gameEnd
 
-
 ;----------------------------------------------------------
 ;	Children MDOs
 ;	Syntax: MDO_CHILD <mdoname> <filename> <extension> <starting address>

@@ -42,7 +42,7 @@ DEBUG				        _OFF				; _OFF: not defined ; _ON: defined; 1-n defined with de
 .FILESYSTEM
 MSX_FILE_NAME		        SCREEN8
 MSX_FILE_EXTENSION          DRV
-MSX_BIN_PATH		        ..\Scamm\[PROFILE]\bin
+MSX_BIN_PATH		        ..\SCAMM\[PROFILE]\bin
 MSX_OBJ_PATH		        [PROFILE]\objs
 MSX_DEV_PATH		        ..\..\..
 MSX_LIB_PATH		        [MSX_DEV_PATH]\libs

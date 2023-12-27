@@ -679,7 +679,6 @@ def configureMDO():
                         as_s = as_s + 'fileStart .equ {}\n'.format(VAR['FILE_START'])
                             
                     elif key == "MDO_HOOK":
-#                       serVar ('HOOK_TEMPLATE', '{} {}'.format(tokens[1], tokens[2]))
                         mhtokens = value.split('|')
                         mim_s = mim_s + 'MDO_HOOK {}\n'.format (mhtokens[1])
                         mi_h = mi_h + 'extern {} {}_hook {};\n'.format (mhtokens[0], mhtokens[1], mhtokens[2])

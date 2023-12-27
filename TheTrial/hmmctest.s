@@ -4,7 +4,7 @@
 ;		Test 9938's HMMC command
 ;----------------------------------------------------------
 
-.include "../SCAMM/vdpportmacros.s"
+;.include "../SCAMM/MSX/VDP/vdpportmacros.s"
 
 .globl	_HMMCSetup
 

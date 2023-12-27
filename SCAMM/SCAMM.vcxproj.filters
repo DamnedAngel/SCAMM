@@ -42,8 +42,11 @@
     <Filter Include="C Header Files\MSX\BIOS">
       <UniqueIdentifier>{a28f4563-9c19-4eb8-8b3a-b326d570df42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ASM Source Files\9938">
-      <UniqueIdentifier>{58ea6315-33ff-4079-ae3f-6d74e84f391a}</UniqueIdentifier>
+    <Filter Include="ASM Header Files\MSX\VDP">
+      <UniqueIdentifier>{9092382a-7e44-474e-949d-04f819a60344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ASM Source Files\MSX\9938">
+      <UniqueIdentifier>{1d42a517-10eb-4e76-ae49-0e0c4ac025b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,19 +56,19 @@
     <ClInclude Include="printinterface.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mdomgr.h">
+    <ClInclude Include="mdostructures.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gamemgr.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vdp.h">
-      <Filter>C Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mdostructures.h">
+    <ClInclude Include="mdomgr.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
     <ClInclude Include="screenmgr.h">
+      <Filter>C Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vdp.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -94,26 +97,29 @@
     <None Include="Make\make.py">
       <Filter>Make</Filter>
     </None>
+    <None Include="MSX\VDP\vdpportmacros.s">
+      <Filter>ASM Header Files\MSX\VDP</Filter>
+    </None>
+    <None Include="9938_hmmc.s">
+      <Filter>ASM Source Files\MSX\9938</Filter>
+    </None>
+    <None Include="9938_hmmm.s">
+      <Filter>ASM Source Files\MSX\9938</Filter>
+    </None>
+    <None Include="9938_stop.s">
+      <Filter>ASM Source Files\MSX\9938</Filter>
+    </None>
+    <None Include="9938_vdpready.s">
+      <Filter>ASM Source Files\MSX\9938</Filter>
+    </None>
+    <None Include="color.s">
+      <Filter>ASM Source Files\MSX</Filter>
+    </None>
     <None Include="screen.s">
       <Filter>ASM Source Files\MSX</Filter>
     </None>
     <None Include="screenmgr_h.s">
-      <Filter>ASM Source Files</Filter>
-    </None>
-    <None Include="9938_hmmm.s">
-      <Filter>ASM Source Files\9938</Filter>
-    </None>
-    <None Include="vdpportmacros.s">
       <Filter>ASM Header Files</Filter>
-    </None>
-    <None Include="9938_vdpready.s">
-      <Filter>ASM Source Files\9938</Filter>
-    </None>
-    <None Include="9938_hmmc.s">
-      <Filter>ASM Source Files\9938</Filter>
-    </None>
-    <None Include="color.s">
-      <Filter>ASM Source Files\MSX</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

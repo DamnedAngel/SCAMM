@@ -4,7 +4,7 @@
 ;		Getting 9938's vdpReady
 ;----------------------------------------------------------
 
-.include "vdpportmacros.s"
+.include "MSX/VDP/vdpportmacros.s"
 
 ;----------------------------------------------------------
 ;	Test if VDP is ready to receive commands.

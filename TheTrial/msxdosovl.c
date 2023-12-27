@@ -19,7 +19,7 @@ extern void HMMCTest(void);
 // ----------------------------------------------------------
 //	This is the custom initialization function for your C MDO.
 //	Invoked when the MDO is loaded.
-unsigned char initialize (void) {
+unsigned char initialize(void) {
 	dbg("The Trial's MDO initialized!\r\n\0");
 	return 0;
 }
@@ -42,7 +42,8 @@ unsigned char activate(void) {
 	HMMCTest();
 	if (r) {
 		dbg("The Trial's MDO activation failed!\r\n\0");
-	} else {
+	}
+	else {
 		dbg("The Trial's MDO activated!\r\n\0");
 	}
 	return r;

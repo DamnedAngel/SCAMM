@@ -137,11 +137,13 @@ cont:
     push    bc          ;Pass info as parameters to "main"
     push    hl
 
+
 ;----------------------------------------------------------
 ;	Step 2: Initialize globals
 .if GLOBALS_INITIALIZER
 	call    gsinit
 .endif
+
 
 ;----------------------------------------------------------
 ;	Step 3: VDP port fix
@@ -162,6 +164,7 @@ cont:
 
     ei
 .endif
+
 
 ;----------------------------------------------------------
 ;	Step 4: Run application
@@ -210,6 +213,7 @@ vdpPortFix::
    inc     hl
    jr      vdpPortFix
 .endif
+
 ;----------------------------------------------------------
 ;	Segments order
 ;----------------------------------------------------------
@@ -277,6 +281,7 @@ mdoChildren:
 .include "mdoimplementation.s"
 .endif
 
+
 ;   ==================================
 ;   ======== VDP FIX SEGMENTS ========
 ;   ==================================
@@ -298,6 +303,7 @@ vdpOutPortMap::
 vdpOutPortMapFinal::
     .db     #0xff
 .endif
+
 
 ;   =====================================
 ;   ========== GSINIT SEGMENTS ==========

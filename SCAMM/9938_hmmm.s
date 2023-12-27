@@ -4,7 +4,7 @@
 ;		Implementation of 9938's HMMM command
 ;----------------------------------------------------------
 
-.include "vdpportmacros.s"
+.include "MSX/VDP/vdpportmacros.s"
 
 .globl		_waitVdpReady
 

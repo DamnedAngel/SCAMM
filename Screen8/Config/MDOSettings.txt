@@ -6,8 +6,8 @@
 
 ;----------------------------------------------------------
 ;	MDO hierarchy
-MDO_APPLICATION_PROJECT_PATH	../Scamm
-MDO_PARENT_PROJECT_PATH			../Scamm
+MDO_APPLICATION_PROJECT_PATH	../SCAMM
+MDO_PARENT_PROJECT_PATH			../SCAMM
 
 ;----------------------------------------------------------
 ;	MDO settings

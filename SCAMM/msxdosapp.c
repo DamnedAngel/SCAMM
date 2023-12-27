@@ -55,7 +55,7 @@ unsigned char main(const unsigned char** argv, int argc) {
 	dbg("Game executed...\r\n\0");
 
 	// To Do: remove
-extern unsigned char WaitKey();
+	extern unsigned char WaitKey();
 	WaitKey();
 
 	// Finalize game
@@ -66,12 +66,12 @@ extern unsigned char WaitKey();
 		return r;
 	}
 	dbg("Game finalized.\r\n\0");
-	
+
 	// Finalize screen
 	dbg("Returning to text mode...\r\n\0");
 	finalizeScreen();
 
-	color (15,4,4);
+	color(15, 4, 4);
 	screen(0);
 	dbg("Text mode activated.\r\n\0");
 

@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{759d9241-827e-4ad7-9793-1e60972e0ac6}</ProjectGuid>
+    <ProjectGuid>{ef253b7d-4ed5-4841-91fa-ca972f3ed239}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -45,8 +45,8 @@
     <NMakeCleanCommandLine>python Make\make.py $(Configuration) clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>python Make\make.py $(Configuration) clean all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Configuration)\objs\</IncludePath>
-    <SourcePath>$(VC_SourcePath);$(Configuration)\obj\</SourcePath>
+    <IncludePath>$(Configuration)\objs\;$(IncludePath)</IncludePath>
+    <SourcePath>$(Configuration)\obj\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>python Make\make.py $(Configuration)</NMakeBuildCommandLine>
@@ -54,6 +54,8 @@
     <NMakeCleanCommandLine>python Make\make.py $(Configuration) clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>python Make\make.py $(Configuration) clean all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(Configuration)\objs\;$(IncludePath)</IncludePath>
+    <SourcePath>$(Configuration)\obj\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
@@ -63,12 +65,13 @@
     <ClInclude Include="mdostructures.h" />
     <ClInclude Include="MSX\BIOS\msxbios.h" />
     <ClInclude Include="printinterface.h" />
-    <ClInclude Include="vdp.h" />
     <ClInclude Include="screenmgr.h" />
+    <ClInclude Include="vdp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="9938_hmmc.s" />
     <None Include="9938_hmmm.s" />
+    <None Include="9938_stop.s" />
     <None Include="9938_vdpready.s" />
     <None Include="color.s" />
     <None Include="Make\make.py" />
@@ -77,15 +80,15 @@
     <None Include="MSX\MSX-DOS\mdostructures.s" />
     <None Include="MSX\MSX-DOS\msxdoscrt0.s" />
     <None Include="MSX\MSX-DOS\mdoservices.s" />
+    <None Include="MSX\VDP\vdpportmacros.s" />
     <None Include="print.s" />
     <None Include="printinterface.s" />
     <None Include="screen.s" />
     <None Include="screenmgr_h.s" />
-    <None Include="vdpportmacros.s" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mdomgr.c" />
     <ClCompile Include="gamemgr.c" />
+    <ClCompile Include="mdomgr.c" />
     <ClCompile Include="msxdosapp.c" />
     <ClCompile Include="screenmgr.c" />
   </ItemGroup>

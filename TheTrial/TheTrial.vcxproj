@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{acd32d5b-b45b-4eb1-a7c4-6aaa5671fdd0}</ProjectGuid>
+    <ProjectGuid>{d2c35f1a-d055-48fa-8057-493925b3200a}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -64,10 +64,12 @@
     <None Include="Make\finalize.bat" />
     <None Include="Make\make.py" />
     <None Include="Make\symbol.py" />
+    <None Include="msxdosovl.s" />
     <None Include="MSX\BIOS\msxbios.s" />
     <None Include="MSX\MDO\msxdosovlcrt0.s" />
+    <None Include="MSX\VDP\vdpportmacros.s" />
     <None Include="printinterface.s" />
-    <None Include="TheTrial.bat" />
+    <None Include="resources\TheTrial.bat" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\ApplicationSettings.txt" />
