@@ -33,5 +33,6 @@ screen.s
 mdomgr.c
 screenmgr.c
 gamemgr.c
+virtualmemory.s
 ;yourSourceCodeHere.s
 ;yourSourceCodeHere.c

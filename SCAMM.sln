@@ -15,6 +15,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheTrial", "TheTrial\TheTri
 		{EF253B7D-4ED5-4841-91FA-CA972F3ED239} = {EF253B7D-4ED5-4841-91FA-CA972F3ED239}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9EE87C85-1293-4839-9796-576E48C017D2}"
+	ProjectSection(SolutionItems) = preProject
+		doc\scamm.md = doc\scamm.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

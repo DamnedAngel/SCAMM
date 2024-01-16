@@ -1,4 +1,3 @@
-#pragma once
 // ----------------------------------------------------------
 //		printinterface.h - by Danilo Angelo, 2023
 //

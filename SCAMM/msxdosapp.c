@@ -15,6 +15,8 @@
 #include "vdp.h"
 #include "screenmgr.h"
 
+#include "virtualmemory.h"
+
 void abendMessage(unsigned char r) {
 	print("SCAMM Fatal Error.\r\n\0");
 	//TO DO: print r
@@ -35,6 +37,9 @@ unsigned char main(const unsigned char** argv, int argc) {
 	print(linefeed);
 #endif
 	unsigned char r;
+
+	// initialize Scamm Virtual Memory System
+	initSVMS();
 
 	// initialize Game
 	dbg("Initializing game...\r\n\0");

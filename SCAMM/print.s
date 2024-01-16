@@ -52,6 +52,13 @@ __print::
 ; CHANGES:
 ;   - All registers
 ; ----------------------------------------------------------------
+_bchput::
+.ifeq __SDCCCALL
+	ld      hl, #2; retrieve address from stack
+	add     hl, sp
+	ld		a, (hl)
+.endif
+
 printchar::
 	push	iy
 	push	ix
