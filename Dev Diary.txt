@@ -1,0 +1,34 @@
+240116:
+- Status:
+	- Memory architecture defined:
+		- Page 0 and 1: Fixed for program + MDOs
+		- Page 2: Scamm Data Packages (SDP), always floating.
+		- Page 3: Fixed. Lower addresses for SVMS controls.
+		- Program and each MDO, with the exceptions below, have its data area just after code area. MDOs must go after Data Area.
+		- Software sprite rendering should probably use page 1 for final drawings, thus it MUST be on page 0.
+	- Zoo ready to be first used, but not used yet in SCAMM.
+	- MDOs working.
+		- SCAMM is a COM project
+		- Screen8 an MDO (which should share memory space with Screen7, to be loaded one at a time)
+		- TheTrial is the mockup of a game. It is currently starting at 0x3000 to make room for the engine in lower addresses.
+		- rammapper.h, originally from Fusion-C, has been revamped:
+			- Smaller;
+			- Simpler;
+			- Smaller data structures;
+			- Supports both sdcccall(0) and sdcccall(1).
+		- virtualmemory module started. Initialization, with greedy segment allocation was working, but now it crashed Screen8 MDO. Going to sleep.
+	- SDPHandler:
+		- [w]pSegNahdler
+		- [w]SDPId
+
+240116:
+- After waking up ready to debug yesterday's crash, recompiling everything seems to solve the problem.
+- Added push/pop ix in all (2 at the moment) virtualmemory routines to make them compatible with C.
+- SDPHandler updated to 
+		- [w]pSegNahdler
+		- [w]SDPId
+		- [b]mode MSB XXXXXXMM LSB
+			MM Mode:
+				00: Don't read SDP
+				01: Read SDP
+				1X: Force Re-Read

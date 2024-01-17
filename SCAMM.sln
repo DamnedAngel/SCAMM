@@ -17,6 +17,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheTrial", "TheTrial\TheTri
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9EE87C85-1293-4839-9796-576E48C017D2}"
 	ProjectSection(SolutionItems) = preProject
+		Dev Diary.txt = Dev Diary.txt
 		doc\scamm.md = doc\scamm.md
 	EndProjectSection
 EndProject

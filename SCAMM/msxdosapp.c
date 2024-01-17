@@ -41,6 +41,10 @@ unsigned char main(const unsigned char** argv, int argc) {
 	// initialize Scamm Virtual Memory System
 	initSVMS();
 
+	// Test Scamm Virtual Memory System features (to be removed)
+
+
+
 	// initialize Game
 	dbg("Initializing game...\r\n\0");
 	r = startGame();

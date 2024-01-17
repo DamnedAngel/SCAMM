@@ -36,6 +36,8 @@ MAPPER_DATA_AREA_ADDR		= 0xc000
 ;   - All registers
 ; ----------------------------------------------------------------
 _initSVMS::
+	push	ix
+
 	; init mapper mgr
 	print	initializingMapperMsg
 	ld		a, #MAPPER_DEVICE_ID
@@ -97,7 +99,7 @@ _initSVMS_segAllocLoop:
 _initSVMS_printDash:
 	ld		a, #'-'
 	push	hl
-	;call	_bchput
+	call	_bchput
 	jr		_initSVMS_segAllocLoop
 
 
@@ -127,6 +129,7 @@ _initSVMS_cont:
 	print	kiloBytesMsg
 
 	ei
+	pop ix
 	ret
 
 ; ----------------------------------------------------------------
@@ -142,8 +145,9 @@ _initSVMS_cont:
 ;   - All registers
 ; ----------------------------------------------------------------
 _activateSDP::
-	; activate segment in SDPHandler
 	di
+	push	ix
+	; activate segment in SDPHandler
 	push	hl
 	ld		a, (hl)
 	inc		hl
@@ -154,7 +158,9 @@ _activateSDP::
 	push hl
 
 	; check if segment's SDPId = SDPHandler.SDPId
+	ld		e, (hl)
 	inc		hl
+	ld		d, (hl)			; de = pSegHandler (to update SegTable below, if SDP is found)
 	inc		hl				; hl = SDPHandler.SDPId
 	ld		a, (#0x8000)
 	ld		b, a
@@ -163,7 +169,28 @@ _activateSDP::
 	inc		(hl)
 	ld		a, (#0x8001)
 	cp		(hl)
-	jr z,	_activateSDP_markInUse
+	jr nz,	_activateSDP_searchFreeSeg
+
+	; update SegTable (mark in use)
+	; de = p(SegHandler.mapperSlot)
+	ex		de, hl
+	inc		hl				; hl = p(SegHandler.mapperSlot)
+	ld		a, (hl)
+	or		#0x00110000		; In use
+	ld		(hl), a
+
+	; SDPId already loaded. Check if reload
+	ex		de, hl
+	inc		hl				; hl = p(SDPHandler.mode)
+	ld		a, (hl)
+	and		#0x00000010		; Force Re-read?
+	jr nz,	_activateSDP_loadSDP
+	
+	scf						; Carry set = success
+	pop hl
+	pop ix
+	ei
+	ret
 
 	; define random starting point fot free segment search
 _activateSDP_searchFreeSeg:
@@ -207,7 +234,7 @@ _activateSDP_searchLoop:
 	ld		d, h
 	ld		e, l
 	or		a
-	jr z,	_activateSDP_markInUse
+	jr z,	_activateSDP_activateSegment
 
 _activateSDP_searchLoop_cont1:
 	dec		hl
@@ -229,32 +256,35 @@ _activateSDP_searchLoop_cont2:
 	; end of segTable
 	ld		a, c
 	cp		#3
-	jr nz,	_activateSDP_markInUse
+	jr nz,	_activateSDP_activateSegment
+
 	pop		hl
+	pop		ix
 	ei
 	ret						; Carry reset = fail
 
-_activateSDP_markInUse:
-	; update segTable
+_activateSDP_activateSegment:
+	; activate segment
 	; de = p(SegHandler.mapperSlot)
-	ld		h, d	
-	ld		l, e
+	push	de
+	ex		de, hl
+	dec		hl				; hl = pSegHandler
+	call	activateSegment
+	pop		hl				; hl = p(SegHandler.mapperSlot)
+
+	; update SegTable (mark in use)
+	; de = p(SegHandler.mapperSlot)
 	ld		a, (hl)
 	or		#0x00110000		; In use
 	ld		(hl), a
 	
-	; activate segment
-	dec		hl
-	push	de
-	call	activateSegment
-	pop		de
-
 	; update SDPHandler
-	dec		de				; de = pSegHandler
-	pop		hl
+	pop		de				; de = pSDPHandler
+	dec		hl				; hl = pSegHandler
+	ex		de, hl			; invert
 	ld		(hl), e
 	inc		hl
-	ld		(hl), d
+	ld		(hl), d			; SDPHandler.pSegHandler = pSegHandler
 
 	; update Segment Header
 	inc		hl				; hl = p(SDPHandler.SDPId)
@@ -266,7 +296,17 @@ _activateSDP_markInUse:
 	ld		a, (hl)
 	ld		(de), a
 
+	; load?
+	inc		hl
+	xor		a
+	cp		(hl)
+	jr z,	_activateSDP_end
+
+_activateSDP_loadSDP:
+
+_activateSDP_end:
 	ei
+	pop		ix
 	scf						; Carry set = success
 	ret
 
