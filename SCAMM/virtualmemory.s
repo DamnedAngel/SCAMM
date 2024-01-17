@@ -52,7 +52,7 @@ _initSVMS::
 	call	_PrintDec
 	print	kiloBytesMsg
 
-	; allocate all available segments up to 4Mb
+	; allocate all available segments up to MAX_NUMBER_OF_SEGMENTS
 	; Note: allocate all other segments needed
 	; by the application BEFORE calling _initSVMS!
 	print	allocatingSegmentsMsg
@@ -156,12 +156,12 @@ _activateSDP::
 	; check if segment's SDPId = SDPHandler.SDPId
 	inc		hl
 	inc		hl				; hl = SDPHandler.SDPId
-	ld		a, (0x8000)
+	ld		a, (#0x8000)
 	ld		b, a
 	cp		(hl)
 	jr nz, 	_activateSDP_searchFreeSeg
 	inc		(hl)
-	ld		a, (0x8001)
+	ld		a, (#0x8001)
 	cp		(hl)
 	jr z,	_activateSDP_markInUse
 
@@ -169,7 +169,7 @@ _activateSDP::
 _activateSDP_searchFreeSeg:
 	call	_rnd16
 	ld		a, (#_numberSegmentInSVMS)
-	ld		c
+	ld		c, a
 	ld		a, (#_numberSegmentInSVMS + 1)
 	ld		b, a
 	or		a				; reset carry flag
@@ -189,7 +189,7 @@ _activateSDP_rndLoop:
 	ld		d, h
 	ld		e, l
 	ex		de, hl
-	ld		de, 0xffff		; invalid pSegHandler
+	ld		de, #0xffff		; invalid pSegHandler
 	ld		c, #3			; best status
 
 _activateSDP_searchLoop:

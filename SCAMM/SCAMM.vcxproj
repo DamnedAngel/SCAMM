@@ -84,7 +84,6 @@
     <None Include="MSX\VDP\vdpportmacros.s" />
     <None Include="print.s" />
     <None Include="printinterface.s" />
-    <None Include="random.s" />
     <None Include="screen.s" />
     <None Include="screenmgr_h.s" />
     <None Include="virtualmemory.s" />
