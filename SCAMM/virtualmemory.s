@@ -13,7 +13,8 @@
 
 
 MAPPER_DEVICE_ID			= 4
-MAX_NUMBER_OF_SEGMENTS		= 8 * 256						; 256 equals do máx of 4Mb
+; MAX_NUMBER_OF_SEGMENTS		= 8 * 256						; 256 equals do máx of 4Mb
+MAX_NUMBER_OF_SEGMENTS		= 10							; 256 equals do máx of 4Mb
 SEGMENT_TABLE_SIZE			= 2 * MAX_NUMBER_OF_SEGMENTS	; in bytes
 MAX_MEMORY_SUPPORTED		= 16 * MAX_NUMBER_OF_SEGMENTS	; in Kbytes
 MAPPER_DATA_AREA_ADDR		= 0xc000
@@ -139,7 +140,7 @@ _initSVMS_cont:
 ;	- HL: pointer to SDP handler
 ;
 ; OUTPUTS:
-;   - Carry:	Success
+;   - A:  0 = Success
 ;
 ; CHANGES:
 ;   - All registers
@@ -153,9 +154,14 @@ _activateSDP::
 	inc		hl
 	ld		h, (hl)
 	ld		l, a			; hl = SDPHandler.pSegHandler
+	or		a				; clear carry flag
+	ld		de, #MAPPER_DATA_AREA_ADDR + SEGMENT_TABLE_SIZE
+	sbc		hl, de
+	add		hl, de			; SDPHandler.pSegHandler valid?
+	jr nc,	_activateSDP_searchFreeSeg
 	call	activateSegment
-	pop hl
-	push hl
+	pop		hl
+	push	hl
 
 	; check if segment's SDPId = SDPHandler.SDPId
 	ld		e, (hl)
@@ -186,9 +192,9 @@ _activateSDP::
 	and		#0x00000010		; Force Re-read?
 	jr nz,	_activateSDP_loadSDP
 	
-	scf						; Carry set = success
-	pop hl
-	pop ix
+	xor		a				; success
+	pop		hl
+	pop		ix
 	ei
 	ret
 
@@ -209,19 +215,18 @@ _activateSDP_rndLoop:
 	rl		b
 	jr nc,	_activateSDP_rndLoop
 	sla		e
-	rl		d				; de = pSegHandler (search starting pointer)
-	inc		de				; de = p(SegHandler.mapperSlot)
+	rl		d				; de = pSegHandler (search starting pointer) - MAPPER_DATA_AREA_ADDR
+	inc		de				; de = p(SegHandler.mapperSlot) - MAPPER_DATA_AREA_ADDR
 
 	; search free segment
-	ld		d, h
-	ld		e, l
-	ex		de, hl
+	ld		hl, #MAPPER_DATA_AREA_ADDR
+	add		hl, de			; hl = p(SegHandler.mapperSlot)
 	ld		de, #0xffff		; invalid pSegHandler
 	ld		c, #3			; best status
 
 _activateSDP_searchLoop:
 	ld		a, (hl)
-	or		#0b00110000
+	and		#0b00110000
 	srl		a
 	srl		a
 	srl		a
@@ -259,9 +264,12 @@ _activateSDP_searchLoop_cont2:
 	jr nz,	_activateSDP_activateSegment
 
 	pop		hl
+
+_activateSDP_fail:
+	ld		a, #1			; fail
 	pop		ix
 	ei
-	ret						; Carry reset = fail
+	ret						
 
 _activateSDP_activateSegment:
 	; activate segment
@@ -275,7 +283,7 @@ _activateSDP_activateSegment:
 	; update SegTable (mark in use)
 	; de = p(SegHandler.mapperSlot)
 	ld		a, (hl)
-	or		#0x00110000		; In use
+	or		#0b00110000		; In use
 	ld		(hl), a
 	
 	; update SDPHandler
@@ -305,9 +313,9 @@ _activateSDP_activateSegment:
 _activateSDP_loadSDP:
 
 _activateSDP_end:
-	ei
+	xor		a				; success
 	pop		ix
-	scf						; Carry set = success
+	ei
 	ret
 
 

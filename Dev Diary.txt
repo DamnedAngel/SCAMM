@@ -32,3 +32,7 @@
 				00: Don't read SDP
 				01: Read SDP
 				1X: Force Re-Read
+- Implemented, without tests, _activateSDP except from the SDP load part. Program executes but ends with a DI + Halt.
+	- removed _activateSDP routine from source (which is NOT being used) and.... program works!
+	- readded the routine and.... IT WORKS! GO FUCKING FIGURE!
+

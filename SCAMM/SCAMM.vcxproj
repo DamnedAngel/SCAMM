@@ -45,7 +45,7 @@
     <NMakeCleanCommandLine>python Make\make.py $(Configuration) clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>python Make\make.py $(Configuration) clean all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(Configuration)\objs\;$(IncludePath)</IncludePath>
+    <IncludePath>$(Configuration)\objs\;C:\Users\danil\Documents\msx\DEV\libs\damnlib;$(IncludePath)</IncludePath>
     <SourcePath>$(Configuration)\obj\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -54,7 +54,7 @@
     <NMakeCleanCommandLine>python Make\make.py $(Configuration) clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>python Make\make.py $(Configuration) clean all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(Configuration)\objs\;$(IncludePath)</IncludePath>
+    <IncludePath>$(Configuration)\objs\;C:\Users\danil\Documents\msx\DEV\libs\damnlib;$(IncludePath)</IncludePath>
     <SourcePath>$(Configuration)\obj\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup>

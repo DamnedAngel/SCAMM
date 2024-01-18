@@ -19,3 +19,17 @@
 ;   - All registers
 ; ----------------------------------------------------------------
 .globl _initSVMS
+
+; ----------------------------------------------------------------
+;	- Activates a Scamm Data Pack (SDP) in a segment
+; ----------------------------------------------------------------
+; INPUTS:
+;	- HL: pointer to SDP handler
+;
+; OUTPUTS:
+;   - A:  0 = Success
+;
+; CHANGES:
+;   - All registers
+; ----------------------------------------------------------------
+.globl _activateSDP

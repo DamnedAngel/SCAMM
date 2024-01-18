@@ -17,6 +17,8 @@
 
 #include "virtualmemory.h"
 
+SDPHANDLER sdp0, sdp1, sdp2, sdp3, sdp4, sdp5, sdp6, sdp7, sdp8, sdp9;
+
 void abendMessage(unsigned char r) {
 	print("SCAMM Fatal Error.\r\n\0");
 	//TO DO: print r
@@ -42,7 +44,9 @@ unsigned char main(const unsigned char** argv, int argc) {
 	initSVMS();
 
 	// Test Scamm Virtual Memory System features (to be removed)
-
+	sdp0.SDPId = 0x0000;
+	sdp0.mode = 1;
+	activateSDP(&sdp0);
 
 
 	// initialize Game
