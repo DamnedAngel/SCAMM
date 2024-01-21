@@ -80,7 +80,7 @@ _initSVMS_segAllocLoop:
 	inc		hl
 	ld		(hl), d
 
-	; mark segment's header with SDPId = 0xffff (invalid)
+	; mark segment's header with SDPId = 0xffff (invalid) ;;'
 	push	hl
 	dec		hl						; hl = pSegHandler
 	call	activateSegment
@@ -190,7 +190,7 @@ _activateSDP::
 	inc		hl				; hl = p(SDPHandler.mode)
 	ld		a, (hl)
 	and		#0x00000010		; Force Re-read?
-	jr nz,	_activateSDP_loadSDP
+	jp nz,	_activateSDP_loadSDP
 	
 	xor		a				; success
 	pop		hl
@@ -198,16 +198,23 @@ _activateSDP::
 	ei
 	ret
 
-	; define random starting point fot free segment search
 _activateSDP_searchFreeSeg:
+	; define random starting point for free segment search
 	call	_rnd16
 	ld		a, (#_numberSegmentInSVMS)
 	ld		c, a
+	exx
+	ld		c, a
+	exx
 	ld		a, (#_numberSegmentInSVMS + 1)
 	ld		b, a
+	exx
+	ld		b, a
+	exx
 	or		a				; reset carry flag
 
 _activateSDP_rndLoop:
+	; makes random point within Segment Table
 	srl		d
 	rr		e
 	or		a				; reset carry flag
@@ -250,12 +257,12 @@ _activateSDP_searchLoop_cont1:
 	ld		hl, #MAPPER_DATA_AREA_ADDR + SEGMENT_TABLE_SIZE
 
 _activateSDP_searchLoop_cont2:
-	dec		hl
-	ld		a, l
-	cp		e
-	jr nz,	_activateSDP_searchLoop
-	ld		a, h
-	cp		d
+	dec		hl	
+	exx
+	dec		bc
+	ld		a, b
+	or		c
+	exx
 	jr nz,	_activateSDP_searchLoop
 
 	; end of segTable
@@ -337,8 +344,8 @@ activateSegment::
 	inc		hl
 	ld		a, (hl)			; slotid
 	ld		h, #0x80		; page 2
-	call	BIOS_ENASLT		; select slot
-	ret
+	jp		BIOS_ENASLT		; select slot
+
 
 ;   ==================================
 ;   ========== DATA SEGMENT ==========

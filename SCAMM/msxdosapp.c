@@ -17,7 +17,7 @@
 
 #include "virtualmemory.h"
 
-SDPHANDLER sdp0, sdp1, sdp2, sdp3, sdp4, sdp5, sdp6, sdp7, sdp8, sdp9;
+SDPHANDLER sdp0, sdp1, sdp2, sdp3, sdp4, sdp5, sdp6, sdp7, sdp8, sdp9, sdp10;
 
 void abendMessage(unsigned char r) {
 	print("SCAMM Fatal Error.\r\n\0");
@@ -47,7 +47,37 @@ unsigned char main(const unsigned char** argv, int argc) {
 	sdp0.SDPId = 0x0000;
 	sdp0.mode = 1;
 	activateSDP(&sdp0);
+	sdp1.SDPId = 0x0001;
+	sdp1.mode = 1;
+	activateSDP(&sdp1);
+	sdp2.SDPId = 0x0002;
+	sdp2.mode = 1;
+	activateSDP(&sdp2);
+	sdp3.SDPId = 0x0003;
+	sdp3.mode = 1;
+	activateSDP(&sdp3);
+	sdp4.SDPId = 0x0004;
+	sdp4.mode = 1;
+	activateSDP(&sdp4);
+	sdp5.SDPId = 0x0005;
+	sdp5.mode = 1;
+	activateSDP(&sdp5);
+	sdp6.SDPId = 0x0006;
+	sdp6.mode = 1;
+	activateSDP(&sdp6);
+	sdp7.SDPId = 0x0007;
+	sdp7.mode = 1;
+	activateSDP(&sdp7);
+	sdp8.SDPId = 0x0008;
+	sdp8.mode = 1;
+	activateSDP(&sdp8);
+	sdp9.SDPId = 0x0009;
+	sdp9.mode = 1;
+	activateSDP(&sdp9);
 
+	sdp10.SDPId = 0x000a;
+	sdp10.mode = 1;
+	activateSDP(&sdp10);
 
 	// initialize Game
 	dbg("Initializing game...\r\n\0");

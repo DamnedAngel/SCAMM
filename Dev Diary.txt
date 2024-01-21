@@ -36,3 +36,12 @@
 	- removed _activateSDP routine from source (which is NOT being used) and.... program works!
 	- re-added the routine and.... IT WORKS! GO FUCKING FIGURE!
 
+240121: 
+- Working on my brand new Windows 7 dev setup!
+- It was hard getting Git Extensions to work, but all mu fault:
+	- Easiest way:
+		- Configure OpenSSH (not Putty);
+		- Tools, GIT GUI, Generate keys (it will altomatically save pvt key in proper place in order for SSH to find)
+		- Register pub key in Github (Avatar, Settings, keys)
+- Tested allocations until SegTable is full. It works.
+	- It had a bug in testing table full. Instead of looking for the first address after full circle, I just loaded BC' with table size and decremented until 0.

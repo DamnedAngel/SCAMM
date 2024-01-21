@@ -8,6 +8,6 @@
 #define  __SCREENMGR_H__
 
 unsigned char setScreen(unsigned char mode);
-void finalizeScreen();
+void finalizeScreen(void);
 
 #endif	// __SCREENMGR_H__
