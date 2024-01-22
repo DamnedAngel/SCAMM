@@ -33,3 +33,33 @@
 ;   - All registers
 ; ----------------------------------------------------------------
 .globl _activateSDP
+
+; ----------------------------------------------------------------
+;	- Releases a segment from a Segment Handler
+; ----------------------------------------------------------------
+; INPUTS:
+;	- A: Release priority
+;	- DE: pointer to Segment handler
+;
+; OUTPUTS:
+;   - None
+;
+; CHANGES:
+;   - A, DE, HL
+; ----------------------------------------------------------------
+.globl _releaseSDP
+
+; ----------------------------------------------------------------
+;	- Releases a segment from a Segment Handler
+; ----------------------------------------------------------------
+; INPUTS:
+;	- A: Release priority
+;	- HL: pointer to Segment handler
+;
+; OUTPUTS:
+;   - None
+;
+; CHANGES:
+;   - A, DE, HL
+; ----------------------------------------------------------------
+.globl _releaseSDP_HL

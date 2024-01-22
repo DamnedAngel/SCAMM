@@ -79,6 +79,14 @@ unsigned char main(const unsigned char** argv, int argc) {
 	sdp10.mode = 1;
 	activateSDP(&sdp10);
 
+	releaseSDP(1, &sdp6);
+
+	activateSDP(&sdp10);
+
+	activateSDP(&sdp6);
+
+	activateSDP(&sdp9);
+
 	// initialize Game
 	dbg("Initializing game...\r\n\0");
 	r = startGame();

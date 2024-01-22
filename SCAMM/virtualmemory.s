@@ -169,10 +169,10 @@ _activateSDP::
 	ld		d, (hl)			; de = pSegHandler (to update SegTable below, if SDP is found)
 	inc		hl				; hl = SDPHandler.SDPId
 	ld		a, (#0x8000)
-	ld		b, a
+	ld		b, a			; Is this needed?
 	cp		(hl)
 	jr nz, 	_activateSDP_searchFreeSeg
-	inc		(hl)
+	inc		hl
 	ld		a, (#0x8001)
 	cp		(hl)
 	jr nz,	_activateSDP_searchFreeSeg
@@ -182,7 +182,7 @@ _activateSDP::
 	ex		de, hl
 	inc		hl				; hl = p(SegHandler.mapperSlot)
 	ld		a, (hl)
-	or		#0x00110000		; In use
+	or		#0b00110000		; In use
 	ld		(hl), a
 
 	; SDPId already loaded. Check if reload
@@ -346,6 +346,48 @@ activateSegment::
 	ld		h, #0x80		; page 2
 	jp		BIOS_ENASLT		; select slot
 
+
+; ----------------------------------------------------------------
+;	- Releases a segment from a Segment Handler
+; ----------------------------------------------------------------
+; INPUTS:
+;	- A: Release priority
+;	- DE: pointer to Segment handler
+;
+; OUTPUTS:
+;   - None
+;
+; CHANGES:
+;   - A, DE, HL
+; ----------------------------------------------------------------
+_releaseSDP::
+_releaseSDP_HL::
+	ex		de, hl
+	ld		e, (hl)
+	inc		hl
+	ld		h, (hl)
+	ld		l, e			; hl = SDPHandler.pSegHandler
+	or		a				; clear carry flag
+	ld		de, #MAPPER_DATA_AREA_ADDR + SEGMENT_TABLE_SIZE
+	sbc		hl, de
+	add		hl, de			; SDPHandler.pSegHandler valid?
+	ret nc					; invalid SegHandler
+	cp		#3
+	jr c,	_releaseSDP_mark
+	ld		a, #2
+
+_releaseSDP_mark:
+	sla		a
+	sla		a
+	sla		a
+	sla		a
+	ld		e, a
+	inc		hl
+	ld		a, (hl)
+	and		#0b11001111
+	or		e
+	ld		(hl), a
+	ret
 
 ;   ==================================
 ;   ========== DATA SEGMENT ==========

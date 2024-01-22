@@ -40,7 +40,7 @@ extern void initSVMS(void);
 ;	- Activates a Scamm Data Pack(SDP) in a segment
 ; ----------------------------------------------------------------
 ; INPUTS:
-;	- HL: pointer to SDP handler
+;	- SDPHANDLER* pSDPHandler: pointer to SDP handler
 ;
 ; OUTPUTS:
 ;   - unsigned char:	0 = success
@@ -51,5 +51,21 @@ extern void initSVMS(void);
 */
 unsigned char activateSDP(SDPHANDLER* pSDPHandler);
 
+/*
+; ----------------------------------------------------------------
+;	- Releases a segment from a Segment Handler
+; ----------------------------------------------------------------
+; INPUTS:
+;	- unsigned char priority: Release priority (0 - 2)
+;	- SDPHANDLER* pSDPHandler: pointer to SDP handler
+;
+; OUTPUTS:
+;   - None
+;
+; CHANGES:
+;   - A, DE, HL
+; ----------------------------------------------------------------
+*/
+void releaseSDP(unsigned char priority, SDPHANDLER* pSDPHandler);
 
 #endif	//  __VIRTUALMEMORY_H__
