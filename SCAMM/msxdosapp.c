@@ -9,25 +9,30 @@
 #include "targetconfig.h"
 #include "applicationsettings.h"
 #include "printinterface.h"
+#include "printDec.h"
+#include "mnemosyne-x.h"
 
 #include "mdointerface.h"
 #include "gamemgr.h"
 #include "vdp.h"
 #include "screenmgr.h"
 
-#include "virtualmemory.h"
+#include "virtualmemorymgr.h"
+LOGSEGHANDLER sdp0, sdp1, sdp2, sdp3, sdp4, sdp5, sdp6, sdp7, sdp8, sdp9, sdp10;
 
-SDPHANDLER sdp0, sdp1, sdp2, sdp3, sdp4, sdp5, sdp6, sdp7, sdp8, sdp9, sdp10;
+extern unsigned char WaitKey(void);
 
 void abendMessage(unsigned char r) {
-	print("SCAMM Fatal Error.\r\n\0");
-	//TO DO: print r
+	print("SCAMM Fatal Error: ");
+	PrintDec(r);
+	print("\r\n\0");
 	return;
 }
 
 // ----------------------------------------------------------
 // SCAMM
 unsigned char main(const unsigned char** argv, int argc) {
+	if ((int) argv & argc) {}
 	print("Starting SCAMM engine.\r\n\0");
 
 #ifdef CMDLINE_PARAMETERS
@@ -41,8 +46,9 @@ unsigned char main(const unsigned char** argv, int argc) {
 	unsigned char r;
 
 	// initialize Scamm Virtual Memory System
-	initSVMS();
+	r = startVirtualMemory(false);
 
+	/*
 	// Test Scamm Virtual Memory System features (to be removed)
 	sdp0.SDPId = 0x0000;
 	sdp0.mode = 1;
@@ -86,6 +92,9 @@ unsigned char main(const unsigned char** argv, int argc) {
 	activateSDP(&sdp6);
 
 	activateSDP(&sdp9);
+	*/
+
+	WaitKey();
 
 	// initialize Game
 	dbg("Initializing game...\r\n\0");
@@ -106,7 +115,6 @@ unsigned char main(const unsigned char** argv, int argc) {
 	dbg("Game executed...\r\n\0");
 
 	// To Do: remove
-	extern unsigned char WaitKey();
 	WaitKey();
 
 	// Finalize game
@@ -125,6 +133,9 @@ unsigned char main(const unsigned char** argv, int argc) {
 	color(15, 4, 4);
 	screen(0);
 	dbg("Text mode activated.\r\n\0");
+
+	// initialize Scamm Virtual Memory System
+	r = stopVirtualMemory();
 
 	print("You've been SCAMMed! Goodbye.\r\n\0");
 	return 0;

@@ -18,6 +18,9 @@ MDO_NAME						SCAMM_ENGINE
 ;	Syntax: MDO_HOOK <C return type>|<hookname>|<C signature>
 ;MDO_HOOK						void|mdoChildHello|(void)
 ;MDO_HOOK						void|mdoChildGoodbye|(void)
+
+MDO_HOOK						unsigned char|initMnemosyneX|(bool)
+
 MDO_HOOK						void|invalidate|(void)
 MDO_HOOK						void|render|(void)
 MDO_HOOK						void|updateFrame|(void)
@@ -31,5 +34,6 @@ MDO_HOOK						void|gameEnd|(void)
 ;	Notes:
 ;	  - if filename is less than 8 characters, the rest must be filled in by spaces.
 ;	  - if extension is less than 3 characters, the rest must be filled in by spaces.
-MDO_CHILD						GAME	^/GAME    /	SCA	#0x3000
-MDO_CHILD						SCREEN	^/SCREENx / DRV #s__AFTERHEAP
+MDO_CHILD						GAME		^/GAME    /	SCA	#0x3000
+MDO_CHILD						SCREEN		^/SCREENx / DRV #s__AFTERHEAP
+MDO_CHILD						MNEMOSYNEX	^/MNEMOSX / DRV #0xc000

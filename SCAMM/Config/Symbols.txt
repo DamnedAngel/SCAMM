@@ -18,8 +18,10 @@ s__AFTERHEAP s__A PARENT_A
 
 ;[a-zA-Z0-9]*_init
 ;_main _m m
+printchar
 _print
 __print
+_PrintDec
 _msgdbg
 _linefeed
 _ellipsis

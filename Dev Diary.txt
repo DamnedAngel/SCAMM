@@ -37,7 +37,7 @@
 	- re-added the routine and.... IT WORKS! GO FUCKING FIGURE!
 
 240121: 
-- Working on my brand new Windows 7 dev setup!
+- Working on my brand new Windows 7 dev setup! :D
 - It was hard getting Git Extensions to work, but all mu fault:
 	- Easiest way:
 		- Configure OpenSSH (not Putty);
@@ -45,3 +45,23 @@
 		- Register pub key in Github (Avatar, Settings, keys)
 - Tested allocations until SegTable is full. It works.
 	- It had a bug in testing table full. Instead of looking for the first address after full circle, I just loaded BC' with table size and decremented until 0.
+
+240122:
+- Had a epyphany that with some more tweaks and additions, the virtuam memory module could be turned into a full virtual memory.
+	- Created the MnemoSyne-X repo on github to work on a virtual memory lib.
+
+240123: 
+- Started migrating the code from vitualmemory to MnemoSyne-X. Decided to take rammapper with it.
+	- Migrating SCAMM terms to more generic and appropriate terms to the new concept. The idea is that SCAMM would not use "WAD" phylosophy anymore, but a RO pagefile instead.
+	- Realized that the Segment handler in what was the SDPHandler is not appropriate, since
+two SDPHandlers could end up pointing to different physical segments linked separately to the same logical segment, generating duplicity.
+		- The link from the logical segment handler (former SDPHandler) to the Segment Table will now be the logical Segment Number itself. avoiding this problem.
+		- Where was the SDPHandler.pSegHandler before will now be a copy of the SegmentHandler itself, allowing to direct segment switching.
+		- The segment table will now be a logical segment Table, with potential to 64k entries (2 bytes each = 128k), allowing the address of up to 1Gb. This will now be in separate segments, the first implementation will be with a single segment, allowing for "only" 128Mb of usable virtual memory (up to 32 pagefiles of 256 segments each = 4Mb).
+
+240131:
+- Migrated MnemoSyne-X to an MDO. In its default configuration, the MDO starts at 0xC000 (page 3, always available).
+- First implementation of _initMnemosyneX working, with:
+	- conditional directive to use the primary mapper only
+	- directives to define the main (when the segments will be made available) and auxiliary pages. Default: main=2, aux=1.
+	

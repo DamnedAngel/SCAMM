@@ -71,7 +71,7 @@
     <ClInclude Include="vdp.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="virtualmemory.h">
+    <ClInclude Include="virtualmemorymgr.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -124,11 +124,8 @@
     <None Include="screenmgr_h.s">
       <Filter>ASM Header Files</Filter>
     </None>
-    <None Include="virtualmemory.s">
-      <Filter>ASM Source Files\MSX</Filter>
-    </None>
-    <None Include="virtualmemory_h.s">
-      <Filter>ASM Header Files</Filter>
+    <None Include="virtualmemorymgr.c">
+      <Filter>C Source Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -33,8 +33,8 @@ EXECGEN_EXTRA_DIRECTIVES
 ;	Application settings
 ;   Macros & constants
 .APPLICATION
-DEBUG				        _OFF				; _OFF: not defined ; _ON: defined; 1-n defined with debug level
-MSXDOSPRINT			        _OFF    			; Allows pipe and redirection. _OFF: not defined ; _ON: defined.
+DEBUG				        _OFF 				; _OFF: not defined ; _ON: defined; 1-n defined with debug level
+MSXDOSPRINT			        _ON       			; Allows pipe and redirection. _OFF: not defined ; _ON: defined.
  
 
 ;----------------------------------------------------------

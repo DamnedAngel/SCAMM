@@ -7,6 +7,8 @@
 #ifndef  __MDOSTRUCTURES_H__
 #define  __MDOSTRUCTURES_H__
 
+#include "stdbool.h"
+
 #define     mdoStatus_loaded    0b00000001
 #define     mdoStatus_linked    0b00000010
 

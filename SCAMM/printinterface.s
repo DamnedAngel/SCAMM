@@ -8,8 +8,6 @@
 .globl _linefeed
 .globl _ellipsis
 
-.globl _bchput
-
 .macro print msg
 	ld		hl, #msg
 	call	__print

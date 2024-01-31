@@ -45,7 +45,7 @@
     <NMakeCleanCommandLine>python Make\make.py $(Configuration) clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>python Make\make.py $(Configuration) clean all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(Configuration)\objs\;C:\Users\danil\Documents\msx\DEV\libs\damnlib;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Danilo\Documents\msx\DEV\libs\MnemoSyne-X\headers;$(Configuration)\objs\;C:\Users\danil\Documents\msx\DEV\libs\damnlib;$(IncludePath)</IncludePath>
     <SourcePath>$(Configuration)\obj\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,7 +67,7 @@
     <ClInclude Include="printinterface.h" />
     <ClInclude Include="screenmgr.h" />
     <ClInclude Include="vdp.h" />
-    <ClInclude Include="virtualmemory.h" />
+    <ClInclude Include="virtualmemorymgr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="9938_hmmc.s" />
@@ -86,8 +86,7 @@
     <None Include="printinterface.s" />
     <None Include="screen.s" />
     <None Include="screenmgr_h.s" />
-    <None Include="virtualmemory.s" />
-    <None Include="virtualmemory_h.s" />
+    <None Include="virtualmemorymgr.c" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamemgr.c" />
