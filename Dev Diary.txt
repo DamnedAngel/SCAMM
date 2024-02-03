@@ -64,4 +64,14 @@ two SDPHandlers could end up pointing to different physical segments linked sepa
 - First implementation of _initMnemosyneX working, with:
 	- conditional directive to use the primary mapper only
 	- directives to define the main (when the segments will be made available) and auxiliary pages. Default: main=2, aux=1.
-	
+
+240202:
+- Some thoughts:
+	- Calls to _activateLogSeg cannot be made from MNEMO_MAIN_SWAP_PAGE.
+	- the segment handler passed to _activateLogSeg cannot be in MNEMO_MAIN_SWAP_PAGE either.
+- Implemented _activateLogSeg, but not tested yet.
+	- _initMnemosyneS was adjusted.
+	- Program is crashing when returning to MSX-DOS, if MAIN = 1 and AUX = 2.
+
+240203:
+- _initMnemosyneS not crashing anymore. It seems to work fine in all scenarios.
