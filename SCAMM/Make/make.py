@@ -600,6 +600,7 @@ def configureMDO():
     mi_h = mi_h + '#ifdef MDO_SUPPORT\n'
     mi_h = mi_h + '\n'
     mi_h = mi_h + '#include "mdostructures.h"\n'
+    mi_h = mi_h + '#include "mnemosyne-x.h"\n'
     mi_h = mi_h + '\n'
     mi_h = mi_h + 'extern unsigned char mdoLoad (mdoHandler*);\n'
     mi_h = mi_h + 'extern unsigned char mdoRelease (mdoHandler*);\n'

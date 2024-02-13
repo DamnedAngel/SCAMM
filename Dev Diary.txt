@@ -74,4 +74,13 @@ two SDPHandlers could end up pointing to different physical segments linked sepa
 	- Program is crashing when returning to MSX-DOS, if MAIN = 1 and AUX = 2.
 
 240203:
-- _initMnemosyneS not crashing anymore. It seems to work fine in all scenarios.
+- _initMnemosyneX not crashing anymore. It seems to work fine in all scenarios.
+
+240210:
+- _initMnemosyneX's and _locSegAllocate's happy paths fixed. They seem to work now.
+
+240211:
+- Beginning to write persistence model.
+
+240213:
+- Standard load properly loading segments and their resources in the happy path.

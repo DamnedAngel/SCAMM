@@ -60,7 +60,9 @@
     <ClInclude Include="printinterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data._80.s" />
     <None Include="hmmctest.s" />
+    <None Include="Make\BuildMemoryBanks.bat" />
     <None Include="Make\finalize.bat" />
     <None Include="Make\make.py" />
     <None Include="Make\symbol.py" />
@@ -70,6 +72,7 @@
     <None Include="MSX\VDP\vdpportmacros.s" />
     <None Include="printinterface.s" />
     <None Include="resources\TheTrial.bat" />
+    <None Include="thetrial.mbm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\ApplicationSettings.txt" />

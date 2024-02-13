@@ -45,6 +45,9 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{b577467c-9cd2-4d9e-bebf-a4ed3c1f1479}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MemoryBank">
+      <UniqueIdentifier>{560a1c53-141d-4c87-99a3-45e400fcf829}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MSX\BIOS\msxbios.h">
@@ -84,6 +87,15 @@
     </None>
     <None Include="Make\finalize.bat">
       <Filter>Make</Filter>
+    </None>
+    <None Include="data._80.s">
+      <Filter>ASM Source Files</Filter>
+    </None>
+    <None Include="thetrial.mbm">
+      <Filter>MemoryBank</Filter>
+    </None>
+    <None Include="Make\BuildMemoryBanks.bat">
+      <Filter>MemoryBank</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

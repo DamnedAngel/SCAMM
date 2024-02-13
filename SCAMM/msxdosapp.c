@@ -18,7 +18,13 @@
 #include "screenmgr.h"
 
 #include "virtualmemorymgr.h"
-LOGSEGHANDLER sdp0, sdp1, sdp2, sdp3, sdp4, sdp5, sdp6, sdp7, sdp8, sdp9, sdp10;
+
+#define 			Poke( address, data )	( *( (volatile unsigned char*)(address) ) = ( (unsigned char)(data) ) )
+#define 			Pokew( address, data )	( *( (volatile unsigned int*)(address) ) = ( (unsigned int)(data) ) )
+#define 			Peek( address )			( *( (volatile unsigned char*)(address) ) )
+#define 			Peekw( address )		( *( (volatile unsigned int*)(address) ) )
+
+LOGSEGHANDLER seg0, seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8, seg9, seg10;
 
 extern unsigned char WaitKey(void);
 
@@ -48,50 +54,88 @@ unsigned char main(const unsigned char** argv, int argc) {
 	// initialize Scamm Virtual Memory System
 	r = startVirtualMemory(false);
 
-	/*
 	// Test Scamm Virtual Memory System features (to be removed)
-	sdp0.SDPId = 0x0000;
-	sdp0.mode = 1;
-	activateSDP(&sdp0);
-	sdp1.SDPId = 0x0001;
-	sdp1.mode = 1;
-	activateSDP(&sdp1);
-	sdp2.SDPId = 0x0002;
-	sdp2.mode = 1;
-	activateSDP(&sdp2);
-	sdp3.SDPId = 0x0003;
-	sdp3.mode = 1;
-	activateSDP(&sdp3);
-	sdp4.SDPId = 0x0004;
-	sdp4.mode = 1;
-	activateSDP(&sdp4);
-	sdp5.SDPId = 0x0005;
-	sdp5.mode = 1;
-	activateSDP(&sdp5);
-	sdp6.SDPId = 0x0006;
-	sdp6.mode = 1;
-	activateSDP(&sdp6);
-	sdp7.SDPId = 0x0007;
-	sdp7.mode = 1;
-	activateSDP(&sdp7);
-	sdp8.SDPId = 0x0008;
-	sdp8.mode = 1;
-	activateSDP(&sdp8);
-	sdp9.SDPId = 0x0009;
-	sdp9.mode = 1;
-	activateSDP(&sdp9);
+	seg0.logSegNumber = 0x0000;
+	seg0.segMode = 1;
+	activateLogSeg_hook(&seg0);
 
-	sdp10.SDPId = 0x000a;
-	sdp10.mode = 1;
-	activateSDP(&sdp10);
+	seg1.logSegNumber = 0x0101;
+	seg1.segMode = 0;
+	activateLogSeg_hook(&seg1);
 
-	releaseSDP(1, &sdp6);
+	seg2.logSegNumber = 0x0004;
+	seg2.segMode = 1;
+	activateLogSeg_hook(&seg2);
 
-	activateSDP(&sdp10);
+	switchMainPage_hook(&seg0);
+	print((const unsigned char*)(0x8008));
+	WaitKey();
 
-	activateSDP(&sdp6);
+	switchMainPage_hook(&seg2);
+	print((const unsigned char*)(0x8008));
+	WaitKey();
 
-	activateSDP(&sdp9);
+	switchMainPage_hook(&seg0);
+	Poke(0xB000, 0x30);
+	Poke(0xB001, 0);
+
+	switchMainPage_hook(&seg1);
+	Poke(0xB000, 0x31);
+	Poke(0xB001, 0);
+
+	switchMainPage_hook(&seg2);
+	Poke(0xB000, 0x32);
+	Poke(0xB001, 0);
+
+	switchMainPage_hook(&seg0);
+	print((const unsigned char*)(0xB000));
+	switchMainPage_hook(&seg1);
+	print((const unsigned char*)(0xB000));
+	switchMainPage_hook(&seg2);
+	print((const unsigned char*)(0xB000));
+
+	seg9.logSegNumber = 0x0410;
+	seg9.segMode = 1;
+	activateLogSeg_hook(&seg9);
+	switchMainPage_hook(&seg9);
+
+
+/*	seg2.logSegNumber = 0x0002;
+	seg2.mode = 1;
+	activateLogSeg(&seg2);
+	seg3.logSegNumber = 0x0003;
+	seg3.mode = 1;
+	activateLogSeg(&seg3);
+	seg4.logSegNumber = 0x0004;
+	seg4.mode = 1;
+	activateLogSeg(&seg4);
+	seg5.logSegNumber = 0x0005;
+	seg5.mode = 1;
+	activateLogSeg(&seg5);
+	seg6.logSegNumber = 0x0006;
+	seg6.mode = 1;
+	activateLogSeg(&seg6);
+	seg7.logSegNumber = 0x0007;
+	seg7.mode = 1;
+	activateLogSeg(&seg7);
+	seg8.logSegNumber = 0x0008;
+	seg8.mode = 1;
+	activateLogSeg(&seg8);
+	seg9.logSegNumber = 0x0009;
+	seg9.mode = 1;
+	activateLogSeg(&seg9);
+
+	seg10.logSegNumber = 0x000a;
+	seg10.mode = 1;
+	activateLogSeg(&seg10);
+
+	releaseseg(1, &seg6);
+
+	activateLogSeg(&seg10);
+
+	activateLogSeg(&seg6);
+
+	activateLogSeg(&seg9);
 	*/
 
 	WaitKey();

@@ -1,0 +1,24 @@
+; ----------------------------------------------------------------
+;	thetrial.mbm
+; ----------------------------------------------------------------
+;	240211 - DamnedAngel
+; ----------------------------------------------------------------
+;	MnemoSyne-X Memory Bank Map for The Trial
+; ----------------------------------------------------------------
+
+FILENAME		THETRIAL
+
+SEGMENT			0
+SEGMENTNAME		texts1
+
+RESOURCE		thetrialmbm					thetrial.mbm
+RESOURCE		msxdosovl					msxdosovl.s
+
+NEXTSEGMENT
+NEXTSEGMENT
+NEXTSEGMENT
+NEXTSEGMENT
+SEGMENTNAME		texts2
+
+RESOURCE		printinterfaceh				printinterface.h
+RESOURCE		hmmctests					hmmctest.s
