@@ -60,7 +60,6 @@
     <ClInclude Include="printinterface.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data._80.s" />
     <None Include="hmmctest.s" />
     <None Include="Make\BuildMemoryBanks.bat" />
     <None Include="Make\finalize.bat" />

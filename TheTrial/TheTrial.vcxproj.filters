@@ -88,9 +88,6 @@
     <None Include="Make\finalize.bat">
       <Filter>Make</Filter>
     </None>
-    <None Include="data._80.s">
-      <Filter>ASM Source Files</Filter>
-    </None>
     <None Include="thetrial.mbm">
       <Filter>MemoryBank</Filter>
     </None>

@@ -54,6 +54,22 @@ _HMMCSetup::
 	ld		a,	#0b11110000			; HMMC
 	out		(c), a					; Reg 46 (execute, dummy)
 
+	exx
+;	ld		a, l
+;	vdp_OutA 1, _HMMCSetup			; 2nd port
+;	ld		a, #40 + 0x80
+;	vdp_OutA 1, _HMMCSetup			; Repeat Reg 40 (Width lo)
+;
+;	ld		a, e
+;	vdp_OutA 1, _HMMCSetup			; 2nd port
+;	ld		a, #42 + 0x80
+;	vdp_OutA 1, _HMMCSetup			; Repeat Reg 42 (Height lo)
+
+	ld		a, #0b11110000
+	vdp_OutA 1, _HMMCSetup			; 2nd port
+	ld		a, #46 + 0x80
+	vdp_OutA 1, _HMMCSetup			; Repeat Reg 46 (execute, for real)
+
 	; prepare to receive data
 	ld		a, #44 + 0x80
 	vdp_OutA 1, _HMMCSetup			; 2nd port

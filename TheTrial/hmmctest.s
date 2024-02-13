@@ -19,7 +19,7 @@ _HMMCTest::
 	ld		b, #0		; direction
 	call	_HMMCSetup
 
-	ld		b, #0xff
+	ld		b, #0
 	ld		a, #3
 hhh:
 	out		(c), a
@@ -35,7 +35,7 @@ hhh:
 	ld		b, #0		; direction
 	call	_HMMCSetup
 
-	ld		b, #0xff
+	ld		b, #0
 	ld		a, #0xff
 ggg:
 	out		(c), a
@@ -51,7 +51,7 @@ next1:
 	ld		b, #0		; direction
 	call	_HMMCSetup
 
-	ld		b, #0xff
+	ld		b, #0
 	ld		a, #0x25
 ddd:
 	out		(c), a
