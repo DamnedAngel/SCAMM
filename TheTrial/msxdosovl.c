@@ -10,11 +10,27 @@
 #include "applicationsettings.h"
 #include "printinterface.h"
 
+#include "../SCAMM/Debug/objs/parentinterface.h"
+
+#include "mnemosyne-x.h"
+#include "thetrial._00.h"
+
 #include "../SCAMM/vdp.h"
 #include "../SCAMM/screenmgr.h"
 
+LOGSEGHANDLER seg0, seg1, seg2;
+
+extern unsigned char activateLogSeg_hook(LOGSEGHANDLER*);
+extern void switchMainPage_hook(LOGSEGHANDLER*);
+extern void switchAuxPage_hook(LOGSEGHANDLER*);
+extern void invalidate_hook(void);
+extern void render_hook(void);
+extern void updateFrame_hook(void);
 
 extern void HMMCTest(void);
+extern void showBackGround1(void);
+extern void showBackGround2(void);
+extern void showBackGround3(void);
 
 // ----------------------------------------------------------
 //	This is the custom initialization function for your C MDO.
@@ -39,7 +55,30 @@ unsigned char activate(void) {
 	unsigned char r;
 	color(255, 0, 0);
 	r = setScreen(8);
-	HMMCTest();
+	
+	seg0.logSegNumber = MNEMO_SEG_PLACE1;
+	seg0.segMode = 1;
+	activateLogSeg_hook(&seg0); 
+
+	seg1.logSegNumber = MNEMO_SEG_PLACE1 + 1;
+	seg1.segMode = 1;
+	activateLogSeg_hook(&seg1);
+
+	seg2.logSegNumber = MNEMO_SEG_PLACE1 + 2;
+	seg2.segMode = 1;
+	activateLogSeg_hook(&seg2);
+
+	switchMainPage_hook(&seg0);
+	showBackGround1();
+
+	switchMainPage_hook(&seg1);
+	showBackGround2();
+	
+	switchMainPage_hook(&seg2);
+	showBackGround3();
+	
+	//HMMCTest();
+
 	if (r) {
 		dbg("The Trial's MDO activation failed!\r\n\0");
 	}

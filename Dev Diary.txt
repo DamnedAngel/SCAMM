@@ -83,4 +83,6 @@ two SDPHandlers could end up pointing to different physical segments linked sepa
 - Beginning to write persistence model.
 
 240213:
-- Standard load properly loading segments and their resources in the happy path.
+- MnemoSyne-X: Standard load properly loading segments and their resources in the happy path.
+- 9938: Fixed _HMMCSetup so that after it the program can output the whole data block, including the first pixel.
+	- The solution was just adding a 2nd HMMC command right after the 1st. The first becomes dummy, and the counting restarts.

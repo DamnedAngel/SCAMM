@@ -56,6 +56,9 @@
     <ClInclude Include="printinterface.h">
       <Filter>C Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Resources\thetrial._00.h">
+      <Filter>C Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MSX\BIOS\msxbios.s">

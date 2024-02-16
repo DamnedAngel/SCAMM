@@ -58,6 +58,7 @@
   <ItemGroup>
     <ClInclude Include="MSX\BIOS\msxbios.h" />
     <ClInclude Include="printinterface.h" />
+    <ClInclude Include="Resources\thetrial._00.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hmmctest.s" />

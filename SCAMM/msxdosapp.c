@@ -1,7 +1,7 @@
 // ----------------------------------------------------------
-//		msxbinapp.c - by Danilo Angelo, 2020-2023
+//		msxdosapp.c - by Danilo Angelo, 2020-2023
 //
-//		BIN program(BLOAD'able) for MSX example
+//		MSX-DOS program (.COM) for MSX example
 //		C version
 // ----------------------------------------------------------
 
@@ -71,64 +71,11 @@ unsigned char main(const unsigned char** argv, int argc) {
 	print((const unsigned char*)(0x8008));
 	WaitKey();
 
-	switchMainPage_hook(&seg2);
-	print((const unsigned char*)(0x8008));
-	WaitKey();
+//	switchMainPage_hook(&seg2);
+//	print((const unsigned char*)(0x8008));
+//	WaitKey();
 
-	switchMainPage_hook(&seg0);
-	Poke(0xB000, 0x30);
-	Poke(0xB001, 0);
-
-	switchMainPage_hook(&seg1);
-	Poke(0xB000, 0x31);
-	Poke(0xB001, 0);
-
-	switchMainPage_hook(&seg2);
-	Poke(0xB000, 0x32);
-	Poke(0xB001, 0);
-
-	switchMainPage_hook(&seg0);
-	print((const unsigned char*)(0xB000));
-	switchMainPage_hook(&seg1);
-	print((const unsigned char*)(0xB000));
-	switchMainPage_hook(&seg2);
-	print((const unsigned char*)(0xB000));
-
-	seg9.logSegNumber = 0x0410;
-	seg9.segMode = 1;
-	activateLogSeg_hook(&seg9);
-	switchMainPage_hook(&seg9);
-
-
-/*	seg2.logSegNumber = 0x0002;
-	seg2.mode = 1;
-	activateLogSeg(&seg2);
-	seg3.logSegNumber = 0x0003;
-	seg3.mode = 1;
-	activateLogSeg(&seg3);
-	seg4.logSegNumber = 0x0004;
-	seg4.mode = 1;
-	activateLogSeg(&seg4);
-	seg5.logSegNumber = 0x0005;
-	seg5.mode = 1;
-	activateLogSeg(&seg5);
-	seg6.logSegNumber = 0x0006;
-	seg6.mode = 1;
-	activateLogSeg(&seg6);
-	seg7.logSegNumber = 0x0007;
-	seg7.mode = 1;
-	activateLogSeg(&seg7);
-	seg8.logSegNumber = 0x0008;
-	seg8.mode = 1;
-	activateLogSeg(&seg8);
-	seg9.logSegNumber = 0x0009;
-	seg9.mode = 1;
-	activateLogSeg(&seg9);
-
-	seg10.logSegNumber = 0x000a;
-	seg10.mode = 1;
-	activateLogSeg(&seg10);
-
+	/*
 	releaseseg(1, &seg6);
 
 	activateLogSeg(&seg10);
@@ -137,8 +84,6 @@ unsigned char main(const unsigned char** argv, int argc) {
 
 	activateLogSeg(&seg9);
 	*/
-
-	WaitKey();
 
 	// initialize Game
 	dbg("Initializing game...\r\n\0");

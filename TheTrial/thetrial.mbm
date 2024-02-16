@@ -6,7 +6,7 @@
 ;	MnemoSyne-X Memory Bank Map for The Trial
 ; ----------------------------------------------------------------
 
-FILENAME		THETRIAL
+FILENAME		thetrial
 
 SEGMENT			0
 SEGMENTNAME		texts1
@@ -22,3 +22,9 @@ SEGMENTNAME		texts2
 
 RESOURCE		printinterfaceh				printinterface.h
 RESOURCE		hmmctests					hmmctest.s
+
+SEGMENT			80
+SEGMENTNAME		PLACE1
+
+SPLITRESOURCE	bg1							Resources\IMG1.PIC		256
+

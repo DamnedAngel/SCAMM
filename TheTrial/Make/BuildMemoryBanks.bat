@@ -1,3 +1,3 @@
-python ..\..\..\libs\MnemoSyne-X\datafile\mnemo.py thetrial.mbm 2 debug\objs
+python ..\..\..\libs\MnemoSyne-X\datafile\mnemo.py thetrial.mbm 2 Resources
 
-move debug\objs\THETRIAL._00 debug\bin
+move Resources\THETRIAL._?? debug\bin
