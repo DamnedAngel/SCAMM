@@ -32,6 +32,9 @@ extern void showBackGround1(void);
 extern void showBackGround2(void);
 extern void showBackGround3(void);
 
+extern unsigned char WaitKey(void);
+
+
 // ----------------------------------------------------------
 //	This is the custom initialization function for your C MDO.
 //	Invoked when the MDO is loaded.
@@ -68,15 +71,28 @@ unsigned char activate(void) {
 	seg2.segMode = 1;
 	activateLogSeg_hook(&seg2);
 
-	switchMainPage_hook(&seg0);
+	switchMainPage_hook(&seg1);
 	showBackGround1();
 
-	switchMainPage_hook(&seg1);
+	switchMainPage_hook(&seg2);
 	showBackGround2();
 	
+	switchMainPage_hook(&seg0);
+	showBackGround3();
+
+	WaitKey();
+
+	activateLogSeg_hook(&seg0);
+	activateLogSeg_hook(&seg1);
+	activateLogSeg_hook(&seg2);
+
+	switchMainPage_hook(&seg0);
+	showBackGround1();
+	switchMainPage_hook(&seg1);
+	showBackGround2();
 	switchMainPage_hook(&seg2);
 	showBackGround3();
-	
+
 	//HMMCTest();
 
 	if (r) {

@@ -53,8 +53,10 @@ unsigned char main(const unsigned char** argv, int argc) {
 
 	// initialize Scamm Virtual Memory System
 	r = startVirtualMemory(false);
+	WaitKey();
 
 	// Test Scamm Virtual Memory System features (to be removed)
+	/*
 	seg0.logSegNumber = 0x0000;
 	seg0.segMode = 1;
 	activateLogSeg_hook(&seg0);
@@ -69,7 +71,8 @@ unsigned char main(const unsigned char** argv, int argc) {
 
 	switchMainPage_hook(&seg0);
 	print((const unsigned char*)(0x8008));
-	WaitKey();
+	
+	*/
 
 //	switchMainPage_hook(&seg2);
 //	print((const unsigned char*)(0x8008));

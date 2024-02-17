@@ -32,3 +32,5 @@ _finalizeScreen
 
 _HMMC
 _9938
+
+_WaitKey
