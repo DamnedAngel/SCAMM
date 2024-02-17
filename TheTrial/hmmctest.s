@@ -1,10 +1,11 @@
 ;----------------------------------------------------------
 ;		hmmctest.s - by Danilo Angelo, 2023
 ;
-;		Test 9938's HMMC command
+;		Test 9938s HMMC command
 ;----------------------------------------------------------
 
 ;.include "../SCAMM/MSX/VDP/vdpportmacros.s"
+.include "mnemosyne-x_config.s"
 
 .globl	_HMMCSetup
 
@@ -73,7 +74,7 @@ _showBackGround1::
 	ld		b, #63
 
 _showBackGround_end::
-	ld		hl, #0x8008			; TODO: Remove hard coded address
+	ld		hl, #MNEMO_MAIN_SEGPAYLOAD
 _bg1_loop:
 	push	bc
 	ld		b, #0

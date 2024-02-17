@@ -15,10 +15,11 @@ unsigned char startVirtualMemory (bool primaryMapperOnly) {
 	if (r) {
 		return r;
 	}
-	r = initMnemosyneX_hook(primaryMapperOnly);
+	r = initMnemoSyneX_hook(primaryMapperOnly);
 	return r;
 }
 
 unsigned char stopVirtualMemory(void) {
+	finalizeMnemoSyneX_hook();
 	return deactivateMDO(&MNEMOSYNEX);
 }

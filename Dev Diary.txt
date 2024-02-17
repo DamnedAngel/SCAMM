@@ -61,7 +61,7 @@ two SDPHandlers could end up pointing to different physical segments linked sepa
 
 240131:
 - Migrated MnemoSyne-X to an MDO. In its default configuration, the MDO starts at 0xC000 (page 3, always available).
-- First implementation of _initMnemosyneX working, with:
+- First implementation of _initMnemoSyneX working, with:
 	- conditional directive to use the primary mapper only
 	- directives to define the main (when the segments will be made available) and auxiliary pages. Default: main=2, aux=1.
 
@@ -74,10 +74,10 @@ two SDPHandlers could end up pointing to different physical segments linked sepa
 	- Program is crashing when returning to MSX-DOS, if MAIN = 1 and AUX = 2.
 
 240203:
-- _initMnemosyneX not crashing anymore. It seems to work fine in all scenarios.
+- _initMnemoSyneX not crashing anymore. It seems to work fine in all scenarios.
 
 240210:
-- _initMnemosyneX's and _locSegAllocate's happy paths fixed. They seem to work now.
+- _initMnemoSyneX's and _locSegAllocate's happy paths fixed. They seem to work now.
 
 240211:
 - Beginning to write persistence model.
@@ -86,3 +86,23 @@ two SDPHandlers could end up pointing to different physical segments linked sepa
 - MnemoSyne-X: Standard load properly loading segments and their resources in the happy path.
 - 9938: Fixed _HMMCSetup so that after it the program can output the whole data block, including the first pixel.
 	- The solution was just adding a 2nd HMMC command right after the 1st. The first becomes dummy, and the counting restarts.
+
+240216:
+- Loading was working fine foe primary mapper only. When I tried to test with all mappers, a white screen appeared.
+	- It turned out that the white screen as 0xff of the segment in which the image should be loaded (which is the initial value of the emulation)
+	- The image was not being loaded in the segment.
+	- While debugging, I notived that the MSX-DOS2 load routine was switching to a seemingly random segment (16) of the primary mapper.
+	- Getting into the guts of the routine, I noticed it changed to primary mapper (slot 3:0 in the A1GT), segment 27, which is a segment MSX-DOS2 reserves for itself for doing DOSsy things.
+		- When reverting to "my" slot/segment, it ended up in the "random" segment in the primary mapper.
+		- After some more analysis, it turned out the routine was indeed trying to get to the correct segment (which would be 48), but without reverting to the correct slot.
+		- The routine tried to select seg 48, but since the selected slot was the primary mapper which has 32 segments, the primary mapper considered only the 5 LSBits of 48...
+		- ... which is 16.
+	- I decided to put this as a challenge to the just-created international whatsapp group MSX File-hunter.com - English.
+		- Stephan Smetsers helped a lot and explained that MSX-DOS2 does not have full support to secondary mappers.
+		- He pointed also to https://www.msx.org/forum/msx-talk/development/reading-a-file-into-non-ram-slots-with-msx-dos-2-functions
+	- The solution, thus, was to add allocate a buffer segment in the primary mapper, load the data onto it and the ldir the data to the final segment in a secondary mapper.
+
+240217;:
+- Migrated _initMnemosyneX to _initMnemoSyneX
+- Noticed that program is leavin aux page and main page different than the ones selected when program started
+	- Created _finalizeMnemoSyneX to restore the original segments. Support routines had to be reworked.

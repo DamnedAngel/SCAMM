@@ -19,7 +19,8 @@ MDO_NAME						SCAMM_ENGINE
 ;MDO_HOOK						void|mdoChildHello|(void)
 ;MDO_HOOK						void|mdoChildGoodbye|(void)
 
-MDO_HOOK						unsigned char|initMnemosyneX|(bool)
+MDO_HOOK						unsigned char|initMnemoSyneX|(bool)
+MDO_HOOK						void|finalizeMnemoSyneX|(void)
 MDO_HOOK						unsigned char|activateLogSeg|(LOGSEGHANDLER*)
 MDO_HOOK						void|switchMainPage|(LOGSEGHANDLER*)
 MDO_HOOK						void|switchAuxPage|(LOGSEGHANDLER*)
