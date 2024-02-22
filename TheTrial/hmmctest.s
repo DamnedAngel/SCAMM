@@ -5,7 +5,7 @@
 ;----------------------------------------------------------
 
 ;.include "../SCAMM/MSX/VDP/vdpportmacros.s"
-.include "mnemosyne-x_config.s"
+.include "mnemosyne-x_h.s"
 
 .globl	_HMMCSetup
 

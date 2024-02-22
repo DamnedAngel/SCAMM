@@ -5,6 +5,8 @@
 //		C version
 // ----------------------------------------------------------
 
+#include <stdbool.h>
+
 #include "MSX/BIOS/msxbios.h"
 #include "targetconfig.h"
 #include "applicationsettings.h"
@@ -27,6 +29,9 @@
 LOGSEGHANDLER seg0, seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8, seg9, seg10;
 
 extern unsigned char WaitKey(void);
+extern unsigned int rnd16(void);
+
+bool b[1024];
 
 void abendMessage(unsigned char r) {
 	print("SCAMM Fatal Error: ");
@@ -53,6 +58,88 @@ unsigned char main(const unsigned char** argv, int argc) {
 
 	// initialize Scamm Virtual Memory System
 	r = startVirtualMemory(false);
+	WaitKey();
+
+	// Test Scamm Virtual Memory System features (to be removed)
+
+	seg0.logSegNumber = 1024;
+	seg0.segMode = 3;
+	activateLogSeg_hook(&seg0);
+	Pokew(0x8008, 0xabc0);
+	mnemo_releaseLogSeg_hook(0x10, &seg0);
+
+	seg1.logSegNumber = 1025;
+	seg1.segMode = 3;
+	activateLogSeg_hook(&seg1);
+	Pokew(0x8008, 0xabc1);
+	mnemo_releaseLogSeg_hook(0x10, &seg1);
+
+	seg2.logSegNumber = 1026;
+	seg2.segMode = 3;
+	activateLogSeg_hook(&seg2);
+	Pokew(0x8008, 0xabc2);
+	PrintDec(Peekw(0x8008));
+	print("--==--\n\r\0");
+	mnemo_releaseLogSeg_hook(0x10, &seg2);
+
+	activateLogSeg_hook(&seg0);
+
+	PrintDec(Peekw(0x8008));
+	print("\n\r\0");
+
+	/*
+	activateLogSeg_hook(&seg0);
+	PrintDec(Peekw(0x9000));
+	print("\n\r\0");
+	activateLogSeg_hook(&seg1);
+	PrintDec(Peekw(0x9000));
+	print("\n\r\0");
+	activateLogSeg_hook(&seg2);
+	PrintDec(Peekw(0x9000));
+	print("\n\r\0");
+	*/
+
+	/*
+	for (int i = 0; i < 1024; i++) {
+		b[i] = false;
+	}
+
+	for (int i = 0; i < 1024; i++) {
+		unsigned int rw = rnd16() & 1023;
+		unsigned char rb = ((unsigned char)(rnd16())) & 3;
+
+		seg0.logSegNumber = rw + 1024;
+		seg0.segMode = 3;
+		activateLogSeg_hook(&seg0);
+		b[rw] = true;
+		Pokew(0x9000, rw);
+		mnemo_releaseLogSeg_hook(rb, &seg0);
+
+		if ((i & 127) == 127) {
+			PrintDec(i + 1);
+			print("\r\0");
+		}
+	}
+	print("\n\0");
+
+	unsigned int errors = 0;
+	for (int i = 0; i < 1024; i++) {
+		if (b[i]) {
+			seg0.logSegNumber = i + 1024;
+			seg0.segMode = 3;
+			activateLogSeg_hook(&seg0);
+			if (Peekw(0x9000) != i) {
+				errors++;
+			}
+			mnemo_releaseLogSeg_hook(1, &seg0);
+		}
+	}
+
+	print("-------\r\n\0");
+	PrintDec(errors);
+
+	*/
+
 	WaitKey();
 
 	// Test Scamm Virtual Memory System features (to be removed)

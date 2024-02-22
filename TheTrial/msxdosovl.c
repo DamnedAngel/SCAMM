@@ -58,7 +58,7 @@ unsigned char activate(void) {
 	unsigned char r;
 	color(255, 0, 0);
 	r = setScreen(8);
-	
+
 	seg0.logSegNumber = MNEMO_SEG_PLACE1;
 	seg0.segMode = 1;
 	activateLogSeg_hook(&seg0); 

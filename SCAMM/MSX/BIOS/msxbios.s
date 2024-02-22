@@ -1,5 +1,4 @@
 ;----------------------------------------------------------
-;----------------------------------------------------------
 ;		msxbios.s - by Danilo Angelo 2020-2023
 ;		Adapted from http://www.konamiman.com/msx/msx2th/th-ap.txt
 ;		230221: added BDOS system calls, from http://www.msxtop.msxall.com/Docs/MSXTopSecret2Continuo.pdf
