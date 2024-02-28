@@ -21,8 +21,11 @@
 LOGSEGHANDLER seg0, seg1, seg2;
 
 extern unsigned char activateLogSeg_hook(LOGSEGHANDLER*);
+extern void mnemo_releaseLogSeg_hook(unsigned char, LOGSEGHANDLER*);
+
 extern void switchMainPage_hook(LOGSEGHANDLER*);
 extern void switchAuxPage_hook(LOGSEGHANDLER*);
+
 extern void invalidate_hook(void);
 extern void render_hook(void);
 extern void updateFrame_hook(void);
@@ -62,15 +65,24 @@ unsigned char activate(void) {
 	seg0.logSegNumber = MNEMO_SEG_PLACE1;
 	seg0.segMode = 1;
 	activateLogSeg_hook(&seg0); 
+	showBackGround1();
+	mnemo_releaseLogSeg_hook(0, &seg0);
 
 	seg1.logSegNumber = MNEMO_SEG_PLACE1 + 1;
 	seg1.segMode = 1;
 	activateLogSeg_hook(&seg1);
+	showBackGround2();
+	mnemo_releaseLogSeg_hook(0, &seg1);
 
 	seg2.logSegNumber = MNEMO_SEG_PLACE1 + 2;
 	seg2.segMode = 1;
 	activateLogSeg_hook(&seg2);
+	showBackGround3();
+	mnemo_releaseLogSeg_hook(0, &seg2);
 
+	WaitKey();
+
+	/*
 	switchMainPage_hook(&seg1);
 	showBackGround1();
 
@@ -92,6 +104,7 @@ unsigned char activate(void) {
 	showBackGround2();
 	switchMainPage_hook(&seg2);
 	showBackGround3();
+	*/
 
 	//HMMCTest();
 

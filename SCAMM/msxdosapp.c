@@ -65,27 +65,28 @@ unsigned char main(const unsigned char** argv, int argc) {
 	seg0.logSegNumber = 1024;
 	seg0.segMode = 3;
 	activateLogSeg_hook(&seg0);
-	Pokew(0x8008, 0xabc0);
+	Pokew(0x8008, 1024);
 	mnemo_releaseLogSeg_hook(0x10, &seg0);
 
 	seg1.logSegNumber = 1025;
 	seg1.segMode = 3;
 	activateLogSeg_hook(&seg1);
-	Pokew(0x8008, 0xabc1);
+	Pokew(0x8008, 1025);
 	mnemo_releaseLogSeg_hook(0x10, &seg1);
 
 	seg2.logSegNumber = 1026;
 	seg2.segMode = 3;
 	activateLogSeg_hook(&seg2);
-	Pokew(0x8008, 0xabc2);
+	Pokew(0x8008, 1026);
 	PrintDec(Peekw(0x8008));
-	print("--==--\n\r\0");
+	print("\n\r\--==--\n\r\0");
 	mnemo_releaseLogSeg_hook(0x10, &seg2);
 
 	activateLogSeg_hook(&seg0);
 
 	PrintDec(Peekw(0x8008));
 	print("\n\r\0");
+	mnemo_releaseLogSeg_hook(0x10, &seg0);
 
 	/*
 	activateLogSeg_hook(&seg0);
