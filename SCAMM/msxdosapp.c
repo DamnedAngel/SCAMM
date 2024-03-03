@@ -99,7 +99,6 @@ unsigned char main(const unsigned char** argv, int argc) {
 	PrintDec(Peekw(0x9000));
 	print("\n\r\0");
 	*/
-
 	/*
 	for (int i = 0; i < 1024; i++) {
 		b[i] = false;
@@ -138,7 +137,6 @@ unsigned char main(const unsigned char** argv, int argc) {
 
 	print("-------\r\n\0");
 	PrintDec(errors);
-
 	*/
 
 	WaitKey();

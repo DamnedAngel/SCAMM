@@ -23,6 +23,7 @@ MDO_HOOK						unsigned char|initMnemoSyneX|(bool)
 MDO_HOOK						void|finalizeMnemoSyneX|(void)
 MDO_HOOK						unsigned char|activateLogSeg|(LOGSEGHANDLER*)
 MDO_HOOK						unsigned char|mnemo_releaseLogSeg|(unsigned char, LOGSEGHANDLER*)
+MDO_HOOK						unsigned char|mnemo_releaseAll|(unsigned char)
 MDO_HOOK						void|switchMainPage|(LOGSEGHANDLER*)
 MDO_HOOK						void|switchAuxPage|(LOGSEGHANDLER*)
 

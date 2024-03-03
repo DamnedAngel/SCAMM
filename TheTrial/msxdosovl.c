@@ -22,6 +22,7 @@ LOGSEGHANDLER seg0, seg1, seg2;
 
 extern unsigned char activateLogSeg_hook(LOGSEGHANDLER*);
 extern void mnemo_releaseLogSeg_hook(unsigned char, LOGSEGHANDLER*);
+extern void mnemo_releaseAll_hook(unsigned char);
 
 extern void switchMainPage_hook(LOGSEGHANDLER*);
 extern void switchAuxPage_hook(LOGSEGHANDLER*);
