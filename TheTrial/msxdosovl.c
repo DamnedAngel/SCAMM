@@ -67,13 +67,13 @@ unsigned char activate(void) {
 	seg0.segMode = 1;
 	activateLogSeg_hook(&seg0); 
 	showBackGround1();
-	mnemo_releaseLogSeg_hook(0, &seg0);
+//	mnemo_releaseLogSeg_hook(0, &seg0);
 
 	seg1.logSegNumber = MNEMO_SEG_PLACE1 + 1;
 	seg1.segMode = 1;
 	activateLogSeg_hook(&seg1);
 	showBackGround2();
-	mnemo_releaseLogSeg_hook(0, &seg1);
+//	mnemo_releaseLogSeg_hook(0, &seg1);
 
 	seg2.logSegNumber = MNEMO_SEG_PLACE1 + 2;
 	seg2.segMode = 1;

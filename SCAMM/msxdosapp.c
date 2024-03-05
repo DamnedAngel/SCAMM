@@ -26,12 +26,15 @@
 #define 			Peek( address )			( *( (volatile unsigned char*)(address) ) )
 #define 			Peekw( address )		( *( (volatile unsigned int*)(address) ) )
 
+#define 			TEST_SEGMENTS			256
+#define 			FIRST_TEST_SEGMENT		256
+
 LOGSEGHANDLER seg0, seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8, seg9, seg10;
 
 extern unsigned char WaitKey(void);
 extern unsigned int rnd16(void);
 
-bool b[1024];
+bool b[TEST_SEGMENTS];
 
 void abendMessage(unsigned char r) {
 	print("SCAMM Fatal Error: ");
@@ -58,86 +61,142 @@ unsigned char main(const unsigned char** argv, int argc) {
 
 	// initialize Scamm Virtual Memory System
 	r = startVirtualMemory(false);
-	WaitKey();
+	//	WaitKey();
 
 	// Test Scamm Virtual Memory System features (to be removed)
+
+	/*
 
 	seg0.logSegNumber = 1024;
 	seg0.segMode = 3;
 	activateLogSeg_hook(&seg0);
 	Pokew(0x8008, 1024);
-	mnemo_releaseLogSeg_hook(0x10, &seg0);
+//	mnemo_releaseLogSeg_hook(0x10, &seg0);
 
 	seg1.logSegNumber = 1025;
 	seg1.segMode = 3;
 	activateLogSeg_hook(&seg1);
 	Pokew(0x8008, 1025);
-	mnemo_releaseLogSeg_hook(0x10, &seg1);
+//	mnemo_releaseLogSeg_hook(0x10, &seg1);
 
 	seg2.logSegNumber = 1026;
 	seg2.segMode = 3;
 	activateLogSeg_hook(&seg2);
 	Pokew(0x8008, 1026);
 	PrintDec(Peekw(0x8008));
-	print("\n\r\--==--\n\r\0");
-	mnemo_releaseLogSeg_hook(0x10, &seg2);
+	print("\r\n\--==--\r\n\0");
+//	mnemo_releaseLogSeg_hook(0x10, &seg2);
 
 	activateLogSeg_hook(&seg0);
 
 	PrintDec(Peekw(0x8008));
-	print("\n\r\0");
-	mnemo_releaseLogSeg_hook(0x10, &seg0);
+	print("\r\n\0");
+//	mnemo_releaseLogSeg_hook(0x10, &seg0);
+
+	mnemo_releaseAll_hook(0x10);
+	mnemo_flushAll_hook();
+	*/
 
 	/*
 	activateLogSeg_hook(&seg0);
-	PrintDec(Peekw(0x9000));
-	print("\n\r\0");
+	PrintDec(Peekw(0x8008));
+	print("\r\n\0");
 	activateLogSeg_hook(&seg1);
-	PrintDec(Peekw(0x9000));
-	print("\n\r\0");
+	PrintDec(Peekw(0x8008));
+	print("\r\n\0");
 	activateLogSeg_hook(&seg2);
-	PrintDec(Peekw(0x9000));
-	print("\n\r\0");
+	PrintDec(Peekw(0x8008));
+	print("\r\n\0");
 	*/
-	/*
-	for (int i = 0; i < 1024; i++) {
+
+	unsigned char e;
+
+	for (int i = 0; i < TEST_SEGMENTS; i++) {
 		b[i] = false;
 	}
 
-	for (int i = 0; i < 1024; i++) {
-		unsigned int rw = rnd16() & 1023;
+	print("Allocating segments...\r\n\0");
+
+	for (int i = 0; i < TEST_SEGMENTS; i++) {
+		unsigned int rw = rnd16() & (TEST_SEGMENTS - 1);
+		unsigned int lsn = FIRST_TEST_SEGMENT + rw;
 		unsigned char rb = ((unsigned char)(rnd16())) & 3;
+		PrintDec(i);
+		print(". Act. LSeg \0");
+		PrintDec(lsn);
 
-		seg0.logSegNumber = rw + 1024;
+		seg0.logSegNumber = lsn;
 		seg0.segMode = 3;
-		activateLogSeg_hook(&seg0);
-		b[rw] = true;
-		Pokew(0x9000, rw);
-		mnemo_releaseLogSeg_hook(rb, &seg0);
+		e=activateLogSeg_hook(&seg0);
+		if (e > 1) {
+			print(" - Act. Error \0");
+			PrintDec(((unsigned int)e));
+		} else {
+			b[rw] = true;
+			Pokew(0x8008, lsn);
+			e=mnemo_releaseLogSeg_hook(rb, &seg0);
+			if (e > 1) {
+				print(" - Rel. Error \0");
+				PrintDec(((unsigned int)e));
+			}
+		}
 
+	/*
 		if ((i & 127) == 127) {
 			PrintDec(i + 1);
 			print("\r\0");
 		}
+	*/
+		print("\r\n\0");
 	}
-	print("\n\0");
+
+	print("Releasing all segments...\r\n\0");
+	mnemo_releaseAll_hook(0x10);
+
+	print("Flushing all segments...\r\n\0");
+	mnemo_flushAll_hook();
+
+	print("\r\n\0");
+	WaitKey();
+
+	print("Testing segments...\r\n\0");
 
 	unsigned int errors = 0;
-	for (int i = 0; i < 1024; i++) {
+	for (int i = 0; i < TEST_SEGMENTS; i++) {
 		if (b[i]) {
-			seg0.logSegNumber = i + 1024;
-			seg0.segMode = 3;
-			activateLogSeg_hook(&seg0);
-			if (Peekw(0x9000) != i) {
-				errors++;
+			unsigned int lsn = FIRST_TEST_SEGMENT + i;
+			PrintDec(i);
+			print(". Testing LSeg \0");
+			PrintDec(lsn);
+			print(" \0");
+			seg0.logSegNumber = lsn;
+			seg0.segMode = 1;
+			e = activateLogSeg_hook(&seg0);
+			if (e) {
+				print(" - Act. Error \0");
+				PrintDec(((unsigned int)e));
+				WaitKey();
 			}
-			mnemo_releaseLogSeg_hook(1, &seg0);
+			else {
+				if (Peekw(0x8008) != lsn) {
+					errors++;
+					print(" - Data Error \0");
+					PrintDec(Peekw(0x8008));
+					WaitKey();
+				}
+				e = mnemo_releaseLogSeg_hook(1, &seg0);
+				if (e) {
+					print(" - Rel. Error \0");
+					PrintDec(((unsigned int)e));
+					WaitKey();
+				}
+			}
 		}
+		print("\r\n\0");
 	}
 
-	print("-------\r\n\0");
+	print("\r\n\-------\r\n\0");
 	PrintDec(errors);
-	*/
 
 	WaitKey();
 
@@ -191,9 +250,6 @@ unsigned char main(const unsigned char** argv, int argc) {
 		return r;
 	}
 	dbg("Game executed...\r\n\0");
-
-	// To Do: remove
-	WaitKey();
 
 	// Finalize game
 	dbg("Finalizing game...\r\n\0");
